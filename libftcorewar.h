@@ -3,15 +3,24 @@
 #define LIBFTCOREWAR_H
 
 #include "libft/libft.h"
+#include <fcntl.h>
+#include <stdio.h>
 
-typedef struct s_players
+typedef struct s_list_players
 {
-    int cnt_plrs;
+    int max_plrs;
     int unic_num;
-    s_players *next;
-}t_players;
+    char *name;
+    struct s_list_players *next;
+}t_list_players;
 
-void read_data_players(char *argv);
+typedef struct s_carriage
+{
+
+}t_carriage;
+void read_data_players(t_list_players **frst);
+char **create_mem_map(int max);
+void init_map(char **map, t_list_players *frst);
 
 /*
 **
