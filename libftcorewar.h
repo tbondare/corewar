@@ -6,26 +6,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-typedef struct s_list_players
-{
-    int max_plrs;
-    int unic_num;
-    char *name;
-    struct s_list_players *next;
-}t_list_players;
-
-typedef struct s_carriage
-{
-
-}t_carriage;
-void read_data_players(t_list_players **frst);
-char **create_mem_map(int max);
-void init_map(char **map, t_list_players *frst);
-
-/*
-**
-*/
-
 #define IND_SIZE				2
 #define REG_SIZE				4
 #define DIR_SIZE				REG_SIZE
@@ -77,5 +57,22 @@ typedef struct		header_s
     unsigned int		prog_size;
     char				comment[COMMENT_LENGTH + 1];
 }					header_t;
+
+/*
+**
+*/
+
+typedef struct s_carriage
+{
+	int unic_num;
+	char *file_name;
+	header_t header;
+	int pc;
+	struct s_carriage *next;
+}t_carriage;
+
+void read_data_players(t_carriage *frst, char *map, int cnt_plr);
+char *create_mem_map();
+void init_map(char **map, t_carriage *frst);
 
 #endif

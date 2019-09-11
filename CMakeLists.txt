@@ -1,7 +1,9 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.12)
 project(corewar C)
 
 set(CMAKE_C_STANDARD 99)
+
+include_directories(libft/ft_printf/inc)
 
 add_executable(corewar main.c
         read_data_players.c
