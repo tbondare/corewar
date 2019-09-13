@@ -131,6 +131,42 @@ void visual_map_carriages(t_carriage *frst, char *map)
 
 }
 
+void sorting_list_carriage(t_carriage *frst)
+{
+    t_carriage *crnt;
+    t_carriage *mem_prev;
+    t_carriage *mem_nxt;
+    int i;
+
+    i = 0;
+    crnt = frst;
+    mem_prev = NULL;
+    mem_nxt = NULL;
+    while (i <= MAX_PLAYERS)
+    {
+        crnt = frst;
+        while(crnt)
+        {
+            if (crnt->next != NULL && crnt->unic_num < crnt->next->unic_num)
+            {
+                mem_nxt = crnt->next->next;
+                crnt->next->next = crnt;
+                crnt->next = mem_nxt;
+                if (mem_prev != NULL)
+                {
+                    mem_prev->next = crnt->next;
+                    crnt = mem_prev->next;
+                }
+                else
+                    frst = crnt->next;
+            }
+            mem_prev = crnt;
+            crnt = crnt->next;
+        }
+        i++;
+    }
+}
+
 int main(int argc, char **argv)
 {
     char *map;
@@ -143,7 +179,8 @@ int main(int argc, char **argv)
         exit (1);
 	map = create_mem_map();
     read_data_players(frst, map, cnt_plr);
+    sorting_list_carriage(frst);
     visual_map_carriages(frst, map);
-
+    ft_corewar(frst, &map);
 	return 0;
 }

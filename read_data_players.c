@@ -33,7 +33,4 @@ void read_data_players(t_carriage *frst, char *map, int cnt_plr)
 			exit(1);
     	crn = crn->next;
 	}
-
-
-
 }
