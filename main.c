@@ -150,14 +150,14 @@ void sorting_list_carriage(t_carriage *frst)
             if (crnt->next != NULL && crnt->unic_num < crnt->next->unic_num)
             {
                 mem_nxt = crnt->next->next;
-                crnt->next->next = crnt;
                 crnt->next = mem_nxt;
                 if (mem_prev != NULL)
                 {
                     mem_prev->next = crnt->next;
                     crnt = mem_prev->next;
                 }
-                else
+				crnt->next->next = crnt;
+                if (mem_prev == NULL)
                     frst = crnt->next;
             }
             mem_prev = crnt;
