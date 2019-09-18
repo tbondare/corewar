@@ -101,26 +101,6 @@ t_op   op_tab[17] =
 **
 */
 
-typedef struct s_registers
-{
-    int live;
-    int ld;
-    int st;
-    int add;
-    int sub;
-    int and;
-    int or;
-    int xor;
-    int zjmp;
-    int ldi;
-    int sti;
-    int fork;
-    int lld;
-    int lldi;
-    int lfork;
-    int aff;
-}t__registers;
-
 typedef struct s_carriage
 {
 	int unic_num;
