@@ -9,6 +9,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
         (*frst) = (t_carriage *)malloc(sizeof(t_carriage));
 		(*frst)->unic_num = 0;
         (*frst)->file_name = argv;
+		(*frst)->cnt_loop = 0;
         (*frst)->next = NULL;
 		return (*frst);
     }
@@ -20,6 +21,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
         crn->next = (t_carriage *)malloc(sizeof(t_carriage));
 		crn->unic_num = 0;
         crn->next->file_name = argv;
+		crn->cnt_loop = 0;
         crn->next->next = NULL;
 		return (crn->next);
     }
@@ -135,13 +137,16 @@ void sorting_list_carriage(t_carriage *frst)
 {
     t_carriage *crnt;
     t_carriage *mem_prev;
-    t_carriage *mem_nxt;
+    t_carriage *mem_double_nxt;
+    t_carriage *mem_next;
+//    t_carriage *mem_crnt;
     int i;
 
     i = 0;
     crnt = frst;
     mem_prev = NULL;
-    mem_nxt = NULL;
+	mem_double_nxt = NULL;
+	mem_next = NULL;
     while (i <= MAX_PLAYERS)
     {
         crnt = frst;
@@ -149,8 +154,9 @@ void sorting_list_carriage(t_carriage *frst)
         {
             if (crnt->next != NULL && crnt->unic_num < crnt->next->unic_num)
             {
-                mem_nxt = crnt->next->next;
-                crnt->next = mem_nxt;
+				mem_double_nxt = crnt->next->next;
+                crnt->next = mem_double_nxt;
+				mem_next = crnt->next;
                 if (mem_prev != NULL)
                 {
                     mem_prev->next = crnt->next;
@@ -181,6 +187,6 @@ int main(int argc, char **argv)
     read_data_players(frst, map, cnt_plr);
     sorting_list_carriage(frst);
     visual_map_carriages(frst, map);
-    ft_corewar(frst, &map);
+    ft_corewar(frst, map);
 	return 0;
 }
