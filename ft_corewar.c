@@ -1,6 +1,3 @@
-//
-// Created by Tetiana BONDARENKO on 2019-09-13.
-//
 
 #include "libftcorewar.h"
 
@@ -36,7 +33,7 @@ void read_command_argum(crnt_carr, map, i_pc, i_argum)
 
 }
 
-void read_command_frome_byte_code(t_carriage *crnt_carr, char *map)
+int read_command_frome_byte_code(t_carriage *crnt_carr, char *map)
 {
 	t_op *info_com;
 	int i_argum;
@@ -44,10 +41,10 @@ void read_command_frome_byte_code(t_carriage *crnt_carr, char *map)
 
 	i_argum = 0;
 	crnt_carr->command.oper_code = map[crnt_carr->pc];
-	while (is_val_command_oper_code(crnt_carr->command.oper_code) != 1)
+	if (is_val_command_oper_code(crnt_carr->command.oper_code) != 1)
 	{
 		crnt_carr->pc = (crnt_carr->pc + 1) % MEM_SIZE;
-		crnt_carr->command.oper_code = map[crnt_carr->pc];
+		return (0);
 	}
 	info_com = &op_tab[crnt_carr->command.oper_code];
 	i_pc = crnt_carr->pc;
@@ -62,11 +59,12 @@ void read_command_frome_byte_code(t_carriage *crnt_carr, char *map)
 		read_command_argum(crnt_carr, map, i_pc, i_argum);
 		i_argum++;
 	}
+	return (1);
 }
 
 void do_crnt_carr(t_carriage *crnt_carr, char *map)
 {
-	read_command_frome_byte_code(crnt_carr, map);
+	if (read_command_frome_byte_code(crnt_carr, map));
 
 }
 

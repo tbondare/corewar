@@ -136,17 +136,25 @@ void visual_map_carriages(t_carriage *frst, char *map)
 void sorting_list_carriage(t_carriage *frst)
 {
     t_carriage *crnt;
-    t_carriage *mem_prev;
-    t_carriage *mem_double_nxt;
-    t_carriage *mem_next;
+    t_carriage *a;
+    t_carriage *b,
+    t_carriage *c;
+    t_carriage *d;
+//    t_carriage *mem_prev;
+//    t_carriage *mem_double_nxt;
+//    t_carriage *mem_next;
 //    t_carriage *mem_crnt;
     int i;
 
     i = 0;
     crnt = frst;
-    mem_prev = NULL;
-	mem_double_nxt = NULL;
-	mem_next = NULL;
+//    mem_prev = NULL;
+//	mem_double_nxt = NULL;
+//	mem_next = NULL;
+	a = NULL;
+	b = NULL;
+	c = NULL;
+	d = NULL;
     while (i <= MAX_PLAYERS)
     {
         crnt = frst;
