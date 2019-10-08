@@ -123,19 +123,20 @@ typedef struct s_registers
 
 typedef struct s_carriage
 {
-	int unic_num;
-	char *file_name;
-	header_t header;
-	int pc;
-	int u_num_carr;
-	int carry;
-	int crn_cod_oper;
-	int num_cycle_end_alive;
-	int remaining_cycles;
-	struct s_carrige *crn_position;
+    int cnt_loop;
+    int unic_num;
+    char *file_name;
+    header_t header;
+    int pc;
+    int u_num_carr;
+    int carry;
+    int crn_cod_oper;
+    int num_cycle_end_alive;
+    int remaining_cycles;
+    struct s_carrige *crn_position;
     int cnt_byt_step_over;
-
-	struct s_carriage *next;
+    t_op command;
+    struct s_carriage *next;
 }t_carriage;
 
 void read_data_players(t_carriage *frst, char *map, int cnt_plr);

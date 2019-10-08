@@ -162,19 +162,23 @@ void sorting_list_carriage(t_carriage *frst)
         {
             if (crnt->next != NULL && crnt->unic_num < crnt->next->unic_num)
             {
-				mem_double_nxt = crnt->next->next;
-                crnt->next = mem_double_nxt;
-				mem_next = crnt->next;
-                if (mem_prev != NULL)
-                {
-                    mem_prev->next = crnt->next;
-                    crnt = mem_prev->next;
-                }
-				crnt->next->next = crnt;
-                if (mem_prev == NULL)
-                    frst = crnt->next;
+                a = crnt->next->next;
+                b = crnt->next;
+                c = crnt;
+                d =
+//				mem_double_nxt = crnt->next->next;
+//                crnt->next = mem_double_nxt;
+//				mem_next = crnt->next;
+//                if (mem_prev != NULL)
+//                {
+//                    mem_prev->next = crnt->next;
+//                    crnt = mem_prev->next;
+//                }
+//				crnt->next->next = crnt;
+//                if (mem_prev == NULL)
+//                    frst = crnt->next;
             }
-            mem_prev = crnt;
+//            mem_prev = crnt;
             crnt = crnt->next;
         }
         i++;

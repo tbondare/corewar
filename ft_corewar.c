@@ -18,17 +18,20 @@
 //
 //    }
 
-int is_val_command_oper_code(crnt_carr->command.oper_code)
+int is_val_command_oper_code(int crnt_oper_code)
+{
+    if (crnt_oper_code > 0 && crnt_oper_code < 17)
+        return (1);
+    else
+        return (0);
+}
+
+int is_argum_type(t_op *info_com, int i_argum)
 {
 
 }
 
-int is_argum_type(info_com, int i_argum)
-{
-
-}
-
-void read_command_argum(crnt_carr, map, i_pc, i_argum)
+void read_command_argum(t_carriage *crnt_carr, char *map, int i_pc, int i_argum)
 {
 
 }
@@ -64,19 +67,29 @@ int read_command_frome_byte_code(t_carriage *crnt_carr, char *map)
 
 void do_crnt_carr(t_carriage *crnt_carr, char *map)
 {
-	if (read_command_frome_byte_code(crnt_carr, map));
-
+    if (crnt_carr->cnt_loop == 0)
+    {
+        if (read_command_frome_byte_code(crnt_carr, map) == 0)
+            crnt_carr->cnt_loop = -1;
+        else
+        {
+            crnt_carr->cnt_loop = crnt_carr->command.num_cycle;
+            crnt_carr->command.num_cycle--;
+        }
+    }
+    else if (crnt_carr->cnt_loop != -1 && crnt_carr->command.num_cycle > 0)
+	    crnt_carr->command.num_cycle--;
 }
 
-void ft_corewar(t_carriage *frst, char *map)
+void ft_corewar(t_op *frst, char *map)
 {
-	t_carriage crnt_carr;
+	t_op *crnt_carr;
 
 	crnt_carr = frst;
 	while (1)
 	{
-		do_crnt_carr(crnt_carr; map);
-		crnt_carr = crnt_carr.next;
+		do_crnt_carr(crnt_carr, map);
+		crnt_carr = crnt_carr->next;
 		if (crnt_carr == NULL)
 			crnt_carr = frst;
 	}
