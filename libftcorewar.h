@@ -46,6 +46,9 @@ typedef char	t_arg_type;
 #define T_IND					4
 #define T_LAB					8
 
+char code2t[4] = {0, T_REG, T_DIR, T_IND};
+int t2size[5] = {0, REG_SIZE, DIR_SIZE, 0, IND_SIZE};
+
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
@@ -100,26 +103,6 @@ t_op   op_tab[17] =
 /*
 **
 */
-
-typedef struct s_registers
-{
-    int live;
-    int ld;
-    int st;
-    int add;
-    int sub;
-    int and;
-    int or;
-    int xor;
-    int zjmp;
-    int ldi;
-    int sti;
-    int fork;
-    int lld;
-    int lldi;
-    int lfork;
-    int aff;
-}t__registers;
 
 typedef struct s_command
 {
