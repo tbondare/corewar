@@ -50,14 +50,15 @@ int read_command_frome_byte_code(t_carriage *crnt_carr, char *map)
 		return (0);
 	}
 	info_com = &op_tab[crnt_carr->command.oper_code];
+	crnt_carr->command.num_cycle = info_com->num_cycle - 1;
 	i_pc = crnt_carr->pc;
+	if (is_argum_type(info_com, i_argum) == 1)
+	{
+		i_pc = (i_pc + 1) % MEM_SIZE;
+		crnt_carr->command.argum_types[i_argum] = map[i_pc];
+	}
 	while (i_argum < info_com->argum_nums)
 	{
-		if (is_argum_type(info_com, i_argum) == 1)
-		{
-			i_pc = (i_pc + 1) % MEM_SIZE;
-			crnt_carr->command.argum_types[i_argum] = map[i_pc];
-		}
 		i_pc = (i_pc + 1) % MEM_SIZE;
 		read_command_argum(crnt_carr, map, i_pc, i_argum);
 		i_argum++;
@@ -65,25 +66,40 @@ int read_command_frome_byte_code(t_carriage *crnt_carr, char *map)
 	return (1);
 }
 
-void do_crnt_carr(t_carriage *crnt_carr, char *map)
+void do_command(t_carriage *crnt_carr, char *map)
 {
-    if (crnt_carr->cnt_loop == 0)
-    {
-        if (read_command_frome_byte_code(crnt_carr, map) == 0)
-            crnt_carr->cnt_loop = -1;
-        else
-        {
-            crnt_carr->cnt_loop = crnt_carr->command.num_cycle;
-            crnt_carr->command.num_cycle--;
-        }
-    }
-    else if (crnt_carr->cnt_loop != -1 && crnt_carr->command.num_cycle > 0)
-	    crnt_carr->command.num_cycle--;
+
 }
 
-void ft_corewar(t_op *frst, char *map)
+void do_crnt_carr(t_carriage *crnt_carr, char *map)
 {
-	t_op *crnt_carr;
+    if (crnt_carr->command.num_cycle == -1)
+    {
+        if (read_command_frome_byte_code(crnt_carr, map) == 0)
+            crnt_carr->command.num_cycle = -1;
+        else
+        {
+        	if (crnt_carr->command.num_cycle > 0)
+            	crnt_carr->command.num_cycle--;
+        }
+        if (crnt_carr->command.num_cycle == 0)
+			do_command(crnt_carr, map);
+    }
+    else
+	{
+		if (crnt_carr->command.num_cycle > 0)
+			crnt_carr->command.num_cycle--;
+		else
+		{
+			do_command(crnt_carr, map);
+			crnt_carr->command.num_cycle = -1;
+		}
+	}
+}
+
+void ft_corewar(t_carriage *frst, char *map)
+{
+	t_carriage *crnt_carr;
 
 	crnt_carr = frst;
 	while (1)

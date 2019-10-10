@@ -9,7 +9,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
         (*frst) = (t_carriage *)malloc(sizeof(t_carriage));
 		(*frst)->unic_num = 0;
         (*frst)->file_name = argv;
-		(*frst)->cnt_loop = 0;
+		(*frst)->command.num_cycle = -1;
         (*frst)->next = NULL;
 		return (*frst);
     }
@@ -21,7 +21,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
         crn->next = (t_carriage *)malloc(sizeof(t_carriage));
 		crn->unic_num = 0;
         crn->next->file_name = argv;
-		crn->cnt_loop = 0;
+		crn->command.num_cycle = -1;
         crn->next->next = NULL;
 		return (crn->next);
     }

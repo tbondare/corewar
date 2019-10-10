@@ -6,6 +6,7 @@ set(CMAKE_C_STANDARD 99)
 include_directories(libft/ft_printf/inc)
 
 add_executable(corewar main.c
+        ft_corewar.c
         read_data_players.c
         libftcorewar.h
         libft/ft_lstcnt.c

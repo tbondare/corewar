@@ -121,27 +121,32 @@ typedef struct s_registers
     int aff;
 }t__registers;
 
+typedef struct s_command
+{
+	int num_cycle;
+	int oper_code;
+	char argum_types[3];
+	int argum[3];
+}t_command;
+
 typedef struct s_carriage
 {
-    int cnt_loop;
     int unic_num;
     char *file_name;
     header_t header;
     int pc;
     int u_num_carr;
-    int carry;
-    int crn_cod_oper;
+//    int carry;
     int num_cycle_end_alive;
-    int remaining_cycles;
+	t_command command;
     struct s_carrige *crn_position;
     int cnt_byt_step_over;
-    t_op command;
     struct s_carriage *next;
 }t_carriage;
 
 void read_data_players(t_carriage *frst, char *map, int cnt_plr);
 char *create_mem_map();
 void init_map(char **map, t_carriage *frst);
-void ft_corewar(t_carriage *frst, char **map);
+void ft_corewar(t_carriage *frst, char *map);
 
 #endif
