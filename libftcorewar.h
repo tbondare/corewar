@@ -125,6 +125,7 @@ typedef struct s_command
 {
 	int num_cycle;
 	int oper_code;
+	int is_arg_type;
 	char argum_types[3];
 	int argum[3];
 }t_command;

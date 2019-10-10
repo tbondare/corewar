@@ -10,6 +10,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
 		(*frst)->unic_num = 0;
         (*frst)->file_name = argv;
 		(*frst)->command.num_cycle = -1;
+        (*frst)->command.is_arg_type = 1;
         (*frst)->next = NULL;
 		return (*frst);
     }
@@ -22,6 +23,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
 		crn->unic_num = 0;
         crn->next->file_name = argv;
 		crn->command.num_cycle = -1;
+		crn->command.is_arg_type = 1;
         crn->next->next = NULL;
 		return (crn->next);
     }
