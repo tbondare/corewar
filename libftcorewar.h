@@ -72,6 +72,7 @@ typedef struct s_command
 
 typedef struct s_carriage
 {
+	int reg[REG_NUMBER];
 	int num_checks;
 	int cnt_ccls_to_die;
 	int cycles_to_die;

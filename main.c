@@ -7,6 +7,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
     if (*frst == NULL)
     {
         (*frst) = (t_carriage *)malloc(sizeof(t_carriage));
+		ft_bzero((*frst)->reg, REG_NUMBER * sizeof(int));
 		(*frst)->unic_num_plr = 0;
         (*frst)->file_name = argv;
 		(*frst)->command.num_cycle = -1;
@@ -25,6 +26,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
 		while (crn->next)
 			crn = crn->next;
         crn->next = (t_carriage *)malloc(sizeof(t_carriage));
+		ft_bzero(crn->reg, REG_NUMBER * sizeof(int));
 		crn->unic_num_plr = 0;
         crn->next->file_name = argv;
 		crn->command.num_cycle = -1;
