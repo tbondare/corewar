@@ -7,10 +7,15 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
     if (*frst == NULL)
     {
         (*frst) = (t_carriage *)malloc(sizeof(t_carriage));
-		(*frst)->unic_num = 0;
+		(*frst)->unic_num_plr = 0;
         (*frst)->file_name = argv;
 		(*frst)->command.num_cycle = -1;
+		(*frst)->cycles_to_die = CYCLE_TO_DIE;
+		(*frst)->num_checks = 0;
+		(*frst)->cnt_ccls_to_die = 0;
         (*frst)->command.is_arg_type = 1;
+		(*frst)->num_oper_live = 0;
+		(*frst)->num_cycle_end_alive = -1;
         (*frst)->next = NULL;
 		return (*frst);
     }
@@ -20,10 +25,15 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
 		while (crn->next)
 			crn = crn->next;
         crn->next = (t_carriage *)malloc(sizeof(t_carriage));
-		crn->unic_num = 0;
+		crn->unic_num_plr = 0;
         crn->next->file_name = argv;
 		crn->command.num_cycle = -1;
+		crn->cycles_to_die = CYCLE_TO_DIE;
+		crn->num_checks = 0;
+		crn->cnt_ccls_to_die = 0;
 		crn->command.is_arg_type = 1;
+		crn->num_oper_live = 0;
+		crn->num_cycle_end_alive = -1;
         crn->next->next = NULL;
 		return (crn->next);
     }
@@ -49,9 +59,9 @@ int found_same_unic_num (t_carriage **frst, int djt, int cnt_plr)
     crn = *frst;
     while (crn)
     {
-        if (crn->unic_num == djt)
+        if (crn->unic_num_plr == djt)
         {
-			crn->unic_num = cnt_plr;
+			crn->unic_num_plr = cnt_plr;
 			return (1);
         }
         crn = crn->next;
@@ -74,7 +84,7 @@ int found_flg_min_n(char **argv, int *j, t_carriage **frst, int *cnt_plr)
                 (*cnt_plr)++;
                 crn = add_player_to_list(frst, argv[*j]);
                 found_same_unic_num(frst, ft_atoi(argv[(*j) - 1]), *cnt_plr);
-                crn->unic_num = ft_atoi(argv[(*j) - 1]);
+                crn->unic_num_plr = ft_atoi(argv[(*j) - 1]);
             }
             else
                 return (0);
@@ -96,7 +106,7 @@ int define_next_unic_num(t_carriage *frst)
 		crn = frst;
 		while (crn)
 		{
-			if (crn->unic_num == num)
+			if (crn->unic_num_plr == num)
 				break;
 			crn = crn->next;
 		}
@@ -122,7 +132,7 @@ int read_inp_str(int argc, char **argv, t_carriage **frst)
             {
                 cnt_plr++;
                 add_player_to_list(frst, argv[j]);
-                (*frst)->unic_num = define_next_unic_num(*frst);
+                (*frst)->unic_num_plr = define_next_unic_num(*frst);
             }
         }
         j++;
@@ -135,72 +145,60 @@ void visual_map_carriages(t_carriage *frst, char *map)
 
 }
 
-void sorting_list_carriage(t_carriage *frst)
+void sorting_list_carriage(t_carriage **frst)
 {
     t_carriage *crnt;
-    t_carriage *a;
-    t_carriage *b,
-    t_carriage *c;
-    t_carriage *d;
-//    t_carriage *mem_prev;
-//    t_carriage *mem_double_nxt;
-//    t_carriage *mem_next;
-//    t_carriage *mem_crnt;
+    t_carriage *mem[4];
     int i;
 
     i = 0;
-    crnt = frst;
-//    mem_prev = NULL;
-//	mem_double_nxt = NULL;
-//	mem_next = NULL;
-	a = NULL;
-	b = NULL;
-	c = NULL;
-	d = NULL;
+	mem[0] = NULL;
     while (i <= MAX_PLAYERS)
     {
-        crnt = frst;
+        crnt = *frst;
         while(crnt)
         {
-            if (crnt->next != NULL && crnt->unic_num < crnt->next->unic_num)
-            {
-                a = crnt->next->next;
-                b = crnt->next;
-                c = crnt;
-                d =
-//				mem_double_nxt = crnt->next->next;
-//                crnt->next = mem_double_nxt;
-//				mem_next = crnt->next;
-//                if (mem_prev != NULL)
-//                {
-//                    mem_prev->next = crnt->next;
-//                    crnt = mem_prev->next;
-//                }
-//				crnt->next->next = crnt;
-//                if (mem_prev == NULL)
-//                    frst = crnt->next;
-            }
-//            mem_prev = crnt;
+            if (crnt->next != NULL && crnt->unic_num_plr < crnt->next->unic_num_plr)
+			{
+				mem[1] = crnt;
+				mem[2] = crnt->next;
+				mem[3] = crnt->next->next;
+				mem[2]->next = mem[1];
+				mem[1]->next = mem[3];
+				if (mem[0] != NULL)
+					mem[0]->next = mem[2];
+				else
+					*frst = mem[2];
+				crnt = mem[2];
+			}
+			mem[0] = crnt;
             crnt = crnt->next;
         }
         i++;
     }
 }
 
+void init_vm_data(t_vm_data *data)
+{
+	data->last_pl_said_alive = data->frst;
+	data->loop_num = 0;
+}
+
 int main(int argc, char **argv)
 {
     char *map;
     int cnt_plr;
-    t_carriage *frst;
+    t_vm_data data;
 
-	frst = NULL;
-    cnt_plr = read_inp_str(argc, argv, &frst);
-    if(!frst)
+	data.frst = NULL;
+    cnt_plr = read_inp_str(argc, argv, &data.frst);
+    if(!data.frst)
         exit (1);
 	map = create_mem_map();
-    read_data_players(frst, map, cnt_plr);
-    sorting_list_carriage(frst);
-    visual_map_carriages(frst, map);
-    ft_corewar(frst, map);
+    read_data_players(data.frst, map, cnt_plr);
+    sorting_list_carriage(&data.frst);
+    visual_map_carriages(data.frst, map);
+    init_vm_data(&data);
+    ft_corewar(map, &data);
 	return 0;
 }

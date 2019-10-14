@@ -8,6 +8,8 @@ include_directories(libft/ft_printf/inc)
 add_executable(corewar main.c
         ft_corewar.c
         read_data_players.c
+        create_mem_map.c
+        do_commands1.c
         libftcorewar.h
         libft/ft_lstcnt.c
         libft/ft_memmove.c
@@ -98,4 +100,4 @@ add_executable(corewar main.c
         libft/ft_printf/src/ft_determ_argc.c
         libft/ft_printf/src/itoa_printf.c
         libft/ft_printf/src/itoa_printf_o_x_b.c
-        )
+        do_commands1.c)

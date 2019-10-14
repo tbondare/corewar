@@ -28,7 +28,7 @@ void read_data_players(t_carriage *frst, char *map, int cnt_plr)
 			exit(1);
 		if (read(fd, &nulls, 4) != 4)
 			exit(1);
-		crn->pc = MEM_SIZE / cnt_plr * (crn->unic_num - 1);
+		crn->pc = MEM_SIZE / cnt_plr * (crn->unic_num_plr - 1);
 		if (read(fd, &map[crn->pc], crn->header.prog_size) != crn->header.prog_size)
 			exit(1);
     	crn = crn->next;
