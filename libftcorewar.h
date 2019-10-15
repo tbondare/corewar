@@ -72,6 +72,7 @@ typedef struct s_command
 
 typedef struct s_carriage
 {
+	int carry;
 	int reg[REG_NUMBER];
 	int num_checks;
 	int cnt_ccls_to_die;
@@ -109,6 +110,21 @@ typedef struct s_op
 }t_op;
 
 void ft_oper_live(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_ld(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_st(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_add(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_sub(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_and(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_or(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_xor(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_zjmp(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_ldi(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_sti(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_fork(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_lld(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_lldi(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_lfork(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void ft_oper_aff(t_carriage *crnt_carr, char *map, t_vm_data *data);
 
 static t_op   op_tab[17] =
 		{
@@ -136,10 +152,6 @@ static t_op   op_tab[17] =
 				{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1, ft_oper_lfork},
 				{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0, ft_oper_aff}
 		};
-
-/*
-**
-*/
 
 void read_data_players(t_carriage *frst, char *map, int cnt_plr);
 char *create_mem_map();

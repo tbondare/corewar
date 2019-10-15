@@ -17,6 +17,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
         (*frst)->command.is_arg_type = 1;
 		(*frst)->num_oper_live = 0;
 		(*frst)->num_cycle_end_alive = -1;
+		(*frst)->carry = -1;
         (*frst)->next = NULL;
 		return (*frst);
     }
@@ -36,6 +37,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
 		crn->command.is_arg_type = 1;
 		crn->num_oper_live = 0;
 		crn->num_cycle_end_alive = -1;
+		crn->carry = -1;
         crn->next->next = NULL;
 		return (crn->next);
     }
