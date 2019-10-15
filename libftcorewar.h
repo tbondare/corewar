@@ -72,6 +72,8 @@ typedef struct s_command
 
 typedef struct s_carriage
 {
+	int is_killed;
+	int next_pc;
 	int carry;
 	int reg[REG_NUMBER];
 	int num_checks;
@@ -105,6 +107,7 @@ typedef struct s_op
 	int num_cycle;
 	char *comment;
 	int cod_of_type_args;
+	int trash;
 	void (*fun)(t_carriage *crnt_carr, char *map, t_vm_data *data);
 
 }t_op;
@@ -157,5 +160,6 @@ void read_data_players(t_carriage *frst, char *map, int cnt_plr);
 char *create_mem_map();
 void init_map(char **map, t_carriage *frst);
 void ft_corewar(char *map, t_vm_data *data);
+int read_bytes(int start_address, char *map, int num_bytes);
 
 #endif

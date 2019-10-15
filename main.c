@@ -8,6 +8,7 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
     {
         (*frst) = (t_carriage *)malloc(sizeof(t_carriage));
 		ft_bzero((*frst)->reg, REG_NUMBER * sizeof(int));
+		(*frst)->is_killed = 0;
 		(*frst)->unic_num_plr = 0;
         (*frst)->file_name = argv;
 		(*frst)->command.num_cycle = -1;
@@ -27,17 +28,18 @@ t_carriage *add_player_to_list(t_carriage **frst, char *argv)
 		while (crn->next)
 			crn = crn->next;
         crn->next = (t_carriage *)malloc(sizeof(t_carriage));
-		ft_bzero(crn->reg, REG_NUMBER * sizeof(int));
-		crn->unic_num_plr = 0;
+		ft_bzero(crn->next->reg, REG_NUMBER * sizeof(int));
+		crn->next->is_killed = 0;
+		crn->next->unic_num_plr = 0;
         crn->next->file_name = argv;
-		crn->command.num_cycle = -1;
-		crn->cycles_to_die = CYCLE_TO_DIE;
-		crn->num_checks = 0;
-		crn->cnt_ccls_to_die = 0;
-		crn->command.is_arg_type = 1;
-		crn->num_oper_live = 0;
-		crn->num_cycle_end_alive = -1;
-		crn->carry = -1;
+		crn->next->command.num_cycle = -1;
+		crn->next->cycles_to_die = CYCLE_TO_DIE;
+		crn->next->num_checks = 0;
+		crn->next->cnt_ccls_to_die = 0;
+		crn->next->command.is_arg_type = 1;
+		crn->next->num_oper_live = 0;
+		crn->next->num_cycle_end_alive = -1;
+		crn->next->carry = -1;
         crn->next->next = NULL;
 		return (crn->next);
     }
