@@ -80,19 +80,31 @@ void	do_crnt_carr(t_carriage *crnt_carr, char *map, t_vm_data *data)
 	do_check(crnt_carr, data);
 }
 
+void print_chemp_name(t_vm_data *data)
+{
+	ft_printf("%s", data->last_pl_said_alive->file_name);
+}
+
 void	ft_corewar(char *map, t_vm_data *data)
 {
 	t_carriage *crnt_carr;
+	int cnt;
 
+	cnt = 0;
 	crnt_carr = data->frst;
 	while (1)
 	{
 		do_crnt_carr(crnt_carr, map, data);
+		if (crnt_carr->is_killed == 0)
+			cnt++;
 		crnt_carr = crnt_carr->next;
 		if (crnt_carr == NULL)
 		{
+			if (cnt <= 1)
+				print_chemp_name(data);
 			crnt_carr = data->frst;
 			data->loop_num++;
+			cnt = 0;
 		}
 	}
 }

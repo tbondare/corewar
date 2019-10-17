@@ -14,6 +14,7 @@
 # define LIBFTCOREWAR_H
 
 # include "libft/libft.h"
+# include "libft/ft_printf/inc/libftprintf.h"
 # include <fcntl.h>
 # include <stdio.h>
 
