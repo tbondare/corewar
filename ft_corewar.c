@@ -82,7 +82,9 @@ void	do_crnt_carr(t_carriage *crnt_carr, char *map, t_vm_data *data)
 
 void print_chemp_name(t_vm_data *data)
 {
-	ft_printf("%s", data->last_pl_said_alive->file_name);
+	ft_printf("Player %d (%s) won",
+			data->last_pl_said_alive->unic_num_plr,
+			data->last_pl_said_alive->file_name);
 }
 
 void	ft_corewar(char *map, t_vm_data *data)
@@ -101,7 +103,10 @@ void	ft_corewar(char *map, t_vm_data *data)
 		if (crnt_carr == NULL)
 		{
 			if (cnt <= 1)
+			{
 				print_chemp_name(data);
+				break ;
+			}
 			crnt_carr = data->frst;
 			data->loop_num++;
 			cnt = 0;
