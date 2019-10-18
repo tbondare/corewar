@@ -12,7 +12,7 @@
 
 #include "libftcorewar.h"
 
-int		get_arg_value(t_carriage *crnt_carr, int index_arg, char *map)
+int		get_arg_value(t_carriage *crnt_carr, int index_arg, unsigned char *map)
 {
 	if (crnt_carr->command.argum_types[index_arg] == T_REG)
 		return (crnt_carr->reg[crnt_carr->command.argum[index_arg]]);
@@ -23,9 +23,9 @@ int		get_arg_value(t_carriage *crnt_carr, int index_arg, char *map)
 					IDX_MOD + crnt_carr->pc, map, 4));
 }
 
-int		read_bytes(int start_address, char *map, int num_bytes)
+int		read_bytes(int start_address, unsigned char *map, int num_bytes)
 {
-	char	bytes[4];
+	unsigned char	bytes[4];
 	int		i;
 
 	i = 0;
@@ -36,20 +36,17 @@ int		read_bytes(int start_address, char *map, int num_bytes)
 		start_address = (start_address + 1) % MEM_SIZE;
 		i++;
 	}
-	i = 0;
-	ft_memcpy(&i, &bytes[0], num_bytes);
-	i = i >> ((sizeof(int) - num_bytes) * 8);
-	return (i);
+	return (ft_bytes_to_int(bytes, num_bytes));
 }
 
-void	write_bytes(int start_address, int value, char *map)
+void	write_bytes(int start_address, int value, unsigned char *map)
 {
 	int i;
 
 	i = 0;
 	while (i < 4)
 	{
-		map[start_address] = ((char*)(&value))[i];
+		map[start_address] = ((unsigned char*)(&value))[i];
 		start_address = (start_address + 1) % MEM_SIZE;
 		i++;
 	}

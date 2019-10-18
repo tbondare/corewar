@@ -12,7 +12,7 @@
 
 #include "libftcorewar.h"
 
-void	do_command(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	do_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	op_tab[crnt_carr->command.oper_code].fun(crnt_carr, map, data);
 	crnt_carr->pc = crnt_carr->next_pc;
@@ -51,7 +51,7 @@ void	do_check(t_carriage *crnt_carr, t_vm_data *data)
 		check_alive(crnt_carr, data);
 }
 
-void	do_crnt_carr(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	do_crnt_carr(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	if (crnt_carr->is_killed == 1)
 		return ;
@@ -87,7 +87,7 @@ void print_chemp_name(t_vm_data *data)
 			data->last_pl_said_alive->file_name);
 }
 
-void	ft_corewar(char *map, t_vm_data *data)
+void	ft_corewar(unsigned char *map, t_vm_data *data)
 {
 	t_carriage *crnt_carr;
 	int cnt;

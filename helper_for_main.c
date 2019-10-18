@@ -1,29 +1,35 @@
 #include "libftcorewar.h"
 
+int ft_bytes_to_int(unsigned char *bytes, int num_bytes)
+{
+	unsigned int val;
+	int i;
+
+	i = 0;
+	val = 0;
+	while (i < num_bytes)
+	{
+		val = val << 8;
+		val= val + bytes[i];
+		i++;
+	}
+	return (val);
+}
+
 int ft_read_data_bytes(int fd)
 {
     unsigned char bytes[4];
-    int i;
-    unsigned int val;
 
-    i = 0;
-    val = 0;
     read(fd, bytes, 4);
-    while (i < 4)
-    {
-        val = val << 8;
-        val= val + bytes[i];
-        i++;
-    }
-    return (val);
+	return (ft_bytes_to_int(bytes, 4));
 }
 
-void	read_data_players(t_carriage *frst, char *map, int cnt_plr)
+void	read_data_players(t_carriage *frst, unsigned char *map, int cnt_plr)
 {
 	int			fd;
 	t_carriage	*crn;
 	int			nulls;
-	char bytes[4];
+	unsigned char bytes[4];
 
 	int a;
 	crn = frst;
@@ -88,3 +94,61 @@ void	sorting_list_carriage(t_carriage **frst)
 	}
 }
 
+void ft_print_memory(const void *add, size_t size)
+{
+	const unsigned char *var;
+	int i;
+	char c;
+	unsigned char prev;
+	int j;
+	int mem_j;
+
+	var = (const unsigned char*)add;
+	i = 0;
+	j = 0;
+	while (size--)
+	{
+		prev = var[i];
+		prev = prev / 16;
+		if (prev % 16 > 9)
+			c = prev % 16 - 10 + 'a';
+		else
+			c = prev % 16 + '0';
+		write(1, &c, 1);
+		prev = var[i];
+		if (prev % 16 > 9)
+			c = prev % 16 - 10 + 'a';
+		else
+			c = prev % 16 + '0';
+		write(1, &c, 1);
+		i++;
+		if ((i + 1) % 2)
+			write(1, " ", 1);
+		if (!(i % 16))
+		{
+			while (j <= i)
+			{
+				c = var[j++];
+				write(1, &c, 1);
+			}
+			write(1, "\n", 1);
+		}
+	}
+	if (i % 16)
+	{
+		mem_j = i - j;
+		while (i % 16)
+		{
+			write(1, "  ", 2);
+			if ((i + 1) % 2)
+				write(1, " ", 1);
+			i++;
+		}
+		while (mem_j--)
+		{
+			c = var[j++];
+			write(1, &c, 1);
+		}
+		write(1, "\n", 1);
+	}
+}

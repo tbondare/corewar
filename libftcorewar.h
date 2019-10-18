@@ -118,24 +118,24 @@ typedef struct					s_op
 	char						*comment;
 	int							cod_of_type_args;
 	int							trash;
-	void						(*fun)(t_carriage *crnt_carr, char *map, t_vm_data *data);
+	void						(*fun)(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 }								t_op;
-void							ft_oper_live(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_ld(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_st(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_add(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_sub(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_and(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_or(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_xor(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_zjmp(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_ldi(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_sti(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_fork(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_lld(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_lldi(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_lfork(t_carriage *crnt_carr, char *map, t_vm_data *data);
-void							ft_oper_aff(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void							ft_oper_live(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_ld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_st(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_add(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_sub(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_and(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_or(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_xor(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_zjmp(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_ldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_sti(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_fork(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_lld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_lldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_lfork(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
+void							ft_oper_aff(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 
 static t_op						op_tab[17] =
 {
@@ -167,8 +167,12 @@ static t_op						op_tab[17] =
 int								main(int argc, char **argv);
 void							init_vm_data(t_vm_data *data);
 void							sorting_list_carriage(t_carriage **frst);
-void							read_data_players(t_carriage *frst, char *map, int cnt_plr);
-char							*create_mem_map();
+void							read_data_players(t_carriage *frst, unsigned char *map, int cnt_plr);
+unsigned char					*create_mem_map();
+
+int ft_bytes_to_int(unsigned char *bytes, int num_bytes);
+int ft_read_data_bytes(int fd);
+void ft_print_memory(const void *add, size_t size);
 
 int								read_inp_str(int argc, char **argv, t_carriage **frst);
 int								define_next_unic_num(t_carriage *frst);
@@ -179,22 +183,22 @@ int								found_point_cor(char *file_name);
 t_carriage						*add_player_to_list(t_carriage **frst, char *argv);
 void							add_player_to_list_crn(t_carriage **crn, char *argv, t_carriage *frst);
 
-int								get_arg_value(t_carriage *crnt_carr, int index_arg, char *map);
-int								read_bytes(int start_address, char *map, int num_bytes);
-void							write_bytes(int start_address, int value, char *map);
+int								get_arg_value(t_carriage *crnt_carr, int index_arg, unsigned char *map);
+int								read_bytes(int start_address, unsigned char *map, int num_bytes);
+void							write_bytes(int start_address, int value, unsigned char *map);
 void							change_carry(t_carriage *crnt_carr, int ind);
 
-void							ft_corewar(char *map, t_vm_data *data);
-void							do_crnt_carr(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void							ft_corewar(unsigned char *map, t_vm_data *data);
+void							do_crnt_carr(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 void							do_check(t_carriage *crnt_carr, t_vm_data *data);
 void							check_alive(t_carriage *crnt_carr, t_vm_data *data);
-void							do_command(t_carriage *crnt_carr, char *map, t_vm_data *data);
+void							do_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 
-int								read_command_frome_byte_code(t_carriage *crnt_carr, char *map);
-void							read_arg_types(t_carriage *crnt_carr, char *map);
+int								read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map);
+void							read_arg_types(t_carriage *crnt_carr, unsigned char *map);
 int								is_val_arg_tapes(t_op *info_com, t_carriage *crnt_carr);
-void							read_com_argums(t_op *info_com, t_carriage *crnt_carr, char *map);
-void							read_command_argum(t_carriage *crnt_carr, char *map, int i_argum);
+void							read_com_argums(t_op *info_com, t_carriage *crnt_carr, unsigned char *map);
+void							read_command_argum(t_carriage *crnt_carr, unsigned char *map, int i_argum);
 
 int								is_val_command_oper_code(int crnt_oper_code);
 int								is_argum_type(t_op *info_com, t_carriage *crnt_carr);

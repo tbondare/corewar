@@ -12,7 +12,7 @@
 
 #include "libftcorewar.h"
 
-void	read_command_argum(t_carriage *crnt_carr, char *map, int i_argum)
+void	read_command_argum(t_carriage *crnt_carr, unsigned char *map, int i_argum)
 {
 	int crnt_arg_size;
 
@@ -22,7 +22,7 @@ void	read_command_argum(t_carriage *crnt_carr, char *map, int i_argum)
 	crnt_carr->next_pc = (crnt_carr->next_pc + crnt_arg_size) % MEM_SIZE;
 }
 
-void	read_com_argums(t_op *info_com, t_carriage *crnt_carr, char *map)
+void	read_com_argums(t_op *info_com, t_carriage *crnt_carr, unsigned char *map)
 {
 	int i_argum;
 
@@ -51,9 +51,9 @@ int		is_val_arg_tapes(t_op *info_com, t_carriage *crnt_carr)
 	return (1);
 }
 
-void	read_arg_types(t_carriage *crnt_carr, char *map)
+void	read_arg_types(t_carriage *crnt_carr, unsigned char *map)
 {
-	char crnt_byte;
+	unsigned char crnt_byte;
 
 	crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 	crnt_byte = map[crnt_carr->next_pc];
@@ -62,7 +62,7 @@ void	read_arg_types(t_carriage *crnt_carr, char *map)
 	crnt_carr->command.argum_types[2] = code2t[(crnt_byte << 4) >> 6];
 }
 
-int		read_command_frome_byte_code(t_carriage *crnt_carr, char *map)
+int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 {
 	t_op *info_com;
 

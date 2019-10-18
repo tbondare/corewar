@@ -12,7 +12,7 @@
 
 #include "libftcorewar.h"
 
-void	ft_oper_st(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	ft_oper_st(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	if (crnt_carr->command.argum_types[1] == T_REG)
 		crnt_carr->reg[crnt_carr->command.argum[0]] =
@@ -24,7 +24,7 @@ void	ft_oper_st(t_carriage *crnt_carr, char *map, t_vm_data *data)
 	}
 }
 
-void	ft_oper_add(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	ft_oper_add(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	crnt_carr->reg[crnt_carr->command.argum[2]] =
 		crnt_carr->reg[crnt_carr->command.argum[0]] +
@@ -32,7 +32,7 @@ void	ft_oper_add(t_carriage *crnt_carr, char *map, t_vm_data *data)
 	change_carry(crnt_carr, 2);
 }
 
-void	ft_oper_sub(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	ft_oper_sub(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	crnt_carr->reg[crnt_carr->command.argum[2]] =
 		crnt_carr->reg[crnt_carr->command.argum[0]] -
@@ -40,7 +40,7 @@ void	ft_oper_sub(t_carriage *crnt_carr, char *map, t_vm_data *data)
 	change_carry(crnt_carr, 2);
 }
 
-void	ft_oper_and(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	ft_oper_and(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	crnt_carr->reg[crnt_carr->command.argum[2]] =
 		get_arg_value(crnt_carr, 0, map) & get_arg_value(crnt_carr, 1, map);

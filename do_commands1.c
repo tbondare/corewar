@@ -12,7 +12,7 @@
 
 #include "libftcorewar.h"
 
-void	ft_oper_live(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	ft_oper_live(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	if (crnt_carr->command.argum[0] == -crnt_carr->unic_num_plr)
 	{
@@ -22,7 +22,7 @@ void	ft_oper_live(t_carriage *crnt_carr, char *map, t_vm_data *data)
 	}
 }
 
-void	ft_oper_ld(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	ft_oper_ld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	int address;
 
@@ -38,7 +38,7 @@ void	ft_oper_ld(t_carriage *crnt_carr, char *map, t_vm_data *data)
 	change_carry(crnt_carr, 1);
 }
 
-void	ft_oper_aff(t_carriage *crnt_carr, char *map, t_vm_data *data)
+void	ft_oper_aff(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	write(1, &crnt_carr->reg[crnt_carr->command.argum[0]], 1);
 }

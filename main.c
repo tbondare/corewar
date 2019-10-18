@@ -12,11 +12,11 @@
 
 #include "libftcorewar.h"
 
-char	*create_mem_map(void)
+unsigned char	*create_mem_map(void)
 {
-	char *map;
+	unsigned char *map;
 
-	map = (char*)malloc(sizeof(char) * MEM_SIZE);
+	map = (unsigned char*)malloc(sizeof(unsigned char) * MEM_SIZE);
 	ft_bzero(map, MEM_SIZE);
 	return (map);
 }
@@ -27,7 +27,7 @@ void	init_vm_data(t_vm_data *data)
 	data->loop_num = 0;
 }
 
-void free_mem(char *map, t_vm_data *data)
+void free_mem(unsigned char *map, t_vm_data *data)
 {
 	t_carriage *next;
 
@@ -42,7 +42,7 @@ void free_mem(char *map, t_vm_data *data)
 
 int		main(int argc, char **argv)
 {
-	char		*map;
+	unsigned char		*map;
 	int			cnt_plr;
 	t_vm_data	data;
 
