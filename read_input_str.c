@@ -48,7 +48,7 @@ int	found_flg_min_n(char **argv, int *j, t_carriage **frst, int *cnt_plr)
 
 	if (ft_strequ(argv[*j], "-n") == 1)
 	{
-		*j++;
+		(*j)++;
 		if (ft_isdigit(argv[*j][0]) == 1 &&
 				ft_atoi(argv[*j]) <= MAX_PLAYERS && ft_atoi(argv[*j]) >= 1)
 		{
@@ -68,28 +68,24 @@ int	found_flg_min_n(char **argv, int *j, t_carriage **frst, int *cnt_plr)
 	return (1);
 }
 
-int	define_next_unic_num(t_carriage *frst, int num_chemp)
+int	define_next_unic_num(t_carriage *frst)
 {
 	int			num;
 	t_carriage	*crn;
-	t_carriage  *crn_frst;
 
-    num = 1;
-	if (frst->next == NULL)
-        return (num);
-	while (num <= MAX_PLAYERS && num_chemp > 1)
+	num = 1;
+	while (num <= MAX_PLAYERS)
 	{
-        crn = frst;
+		crn = frst;
 		while (crn)
 		{
-			if (crn->unic_num_plr == num && num_chemp > 0)
-            {
-			    num++;
-			    num_chemp--;
-                continue ;
-            }
+			if (crn->unic_num_plr == num)
+				break ;
 			crn = crn->next;
 		}
+		if (crn == NULL)
+			return (num);
+		num++;
 	}
 	return (num);
 }
@@ -98,31 +94,17 @@ int	read_inp_str(int argc, char **argv, t_carriage **frst)
 {
 	int j;
 	int cnt_plr;
-	t_carriage *crn;
 
 	j = 1;
 	cnt_plr = 0;
 	while (j < argc && cnt_plr <= MAX_PLAYERS)
 	{
-		if (found_flg_min_n(argv, &j, frst, &cnt_plr) != 1)
-		{
-			if (found_point_cor(argv[j]) == 1)
-			{
-				cnt_plr++;
-				add_player_to_list(frst, argv[j]);
-				(*frst)->unic_num_plr = define_next_unic_num(*frst, argc - 1);
-			}
-		}
-		else
+		if (found_flg_min_n(argv, &j, frst, &cnt_plr) == 1)
         {
             if (found_point_cor(argv[j]) == 1)
             {
                 cnt_plr++;
                 add_player_to_list(frst, argv[j]);
-                crn = *frst;
-                while (crn->next)
-                    crn = crn->next;
-                crn->unic_num_plr = define_next_unic_num(*frst, argc - 1);
             }
         }
 		j++;

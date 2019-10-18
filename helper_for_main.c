@@ -39,17 +39,13 @@ void	read_data_players(t_carriage *frst, char *map, int cnt_plr)
 			exit(1);
 		if (read(fd, &nulls, 4) != 4)
 			exit(1);
-		if (read(fd, &(crn->header.prog_size), 4) != 4)
-			exit(1);
-		a = ft_read_data_bytes(fd);
-//        if (ft_read_data_bytes(fd) > CHAMP_MAX_SIZE)
-//            exit(1);
+		crn->header.prog_size = ft_read_data_bytes(fd);
+        if (crn->header.prog_size > CHAMP_MAX_SIZE)
+            exit(1);
         if (read(fd, crn->header.comment, COMMENT_LENGTH) != COMMENT_LENGTH)
             exit(1);
         if (read(fd, &nulls, 4) != 4)
             exit(1);
-		if (read(fd, &nulls, 4) != 4)
-			exit(1);
 		crn->pc = MEM_SIZE / cnt_plr * (crn->unic_num_plr - 1);
 		if (read(fd, &map[crn->pc], crn->header.prog_size) !=
 			crn->header.prog_size)

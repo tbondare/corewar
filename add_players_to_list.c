@@ -12,7 +12,7 @@
 
 #include "libftcorewar.h"
 
-void		add_player_to_list_crn(t_carriage **crn, char *argv)
+void		add_player_to_list_crn(t_carriage **crn, char *argv, t_carriage *frst)
 {
 	while ((*crn)->next)
 		(*crn) = (*crn)->next;
@@ -29,6 +29,7 @@ void		add_player_to_list_crn(t_carriage **crn, char *argv)
 	(*crn)->next->num_oper_live = 0;
 	(*crn)->next->num_cycle_end_alive = -1;
 	(*crn)->next->carry = -1;
+	(*crn)->next->unic_num_plr = define_next_unic_num(frst);
 	(*crn)->next->next = NULL;
 }
 
@@ -52,10 +53,11 @@ t_carriage	*add_player_to_list(t_carriage **frst, char *argv)
 		(*frst)->num_oper_live = 0;
 		(*frst)->num_cycle_end_alive = -1;
 		(*frst)->carry = -1;
+		(*frst)->unic_num_plr = define_next_unic_num(*frst);
 		(*frst)->next = NULL;
 		return (*frst);
 	}
 	else
-		add_player_to_list_crn(&crn, argv);
+		add_player_to_list_crn(&crn, argv, *frst);
 	return (crn->next);
 }

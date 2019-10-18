@@ -171,13 +171,13 @@ void							read_data_players(t_carriage *frst, char *map, int cnt_plr);
 char							*create_mem_map();
 
 int								read_inp_str(int argc, char **argv, t_carriage **frst);
-int								define_next_unic_num(t_carriage *frst, int num_chemp);
+int								define_next_unic_num(t_carriage *frst);
 int								found_flg_min_n(char **argv, int *j, t_carriage **frst, int *cnt_plr);
 int								found_same_unic_num (t_carriage **frst, int djt, int cnt_plr);
 int								found_point_cor(char *file_name);
 
 t_carriage						*add_player_to_list(t_carriage **frst, char *argv);
-void							add_player_to_list_crn(t_carriage **crn, char *argv);
+void							add_player_to_list_crn(t_carriage **crn, char *argv, t_carriage *frst);
 
 int								get_arg_value(t_carriage *crnt_carr, int index_arg, char *map);
 int								read_bytes(int start_address, char *map, int num_bytes);
