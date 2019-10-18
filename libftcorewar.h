@@ -63,13 +63,13 @@ static int						t2size[5] = {0, REG_SIZE, DIR_SIZE, 0, IND_SIZE};
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct					header_s
+typedef struct					s_header
 {
 	unsigned int				magic;
 	char						prog_name[PROG_NAME_LENGTH + 1];
 	unsigned int				prog_size;
 	char						comment[COMMENT_LENGTH + 1];
-}								header_t;
+}								t_header;
 
 typedef struct					s_command
 {
@@ -93,7 +93,7 @@ typedef	struct					s_carriage
 	int							unic_num_carr;
 	int							unic_num_plr;
 	char						*file_name;
-	header_t					header;
+	t_header					header;
 	int							pc;
 	int							num_cycle_end_alive;
 	t_command					command;
@@ -171,7 +171,7 @@ void							read_data_players(t_carriage *frst, char *map, int cnt_plr);
 char							*create_mem_map();
 
 int								read_inp_str(int argc, char **argv, t_carriage **frst);
-int								define_next_unic_num(t_carriage *frst);
+int								define_next_unic_num(t_carriage *frst, int num_chemp);
 int								found_flg_min_n(char **argv, int *j, t_carriage **frst, int *cnt_plr);
 int								found_same_unic_num (t_carriage **frst, int djt, int cnt_plr);
 int								found_point_cor(char *file_name);

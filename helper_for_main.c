@@ -1,21 +1,39 @@
 #include "libftcorewar.h"
 
+int ft_read_data_bytes(int fd)
+{
+    unsigned char bytes[4];
+    int i;
+    unsigned int val;
+
+    i = 0;
+    val = 0;
+    read(fd, bytes, 4);
+    while (i < 4)
+    {
+        val = val << 8;
+        val= val + bytes[i];
+        i++;
+    }
+    return (val);
+}
+
 void	read_data_players(t_carriage *frst, char *map, int cnt_plr)
 {
 	int			fd;
 	t_carriage	*crn;
 	int			nulls;
+	char bytes[4];
 
+	int a;
 	crn = frst;
 	while (crn)
 	{
 		fd = open(crn->file_name, O_RDONLY);
 		if (fd == -1)
 			exit(1);
-		if (read(fd, &(crn->header.magic), 4) != 4)
-			exit(1);
-		if (crn->header.magic != COREWAR_EXEC_MAGIC)
-			exit(1);
+        if (ft_read_data_bytes(fd) != COREWAR_EXEC_MAGIC)
+            exit(1);
 		if (read(fd, crn->header.prog_name, PROG_NAME_LENGTH) !=
 			PROG_NAME_LENGTH)
 			exit(1);
@@ -23,10 +41,13 @@ void	read_data_players(t_carriage *frst, char *map, int cnt_plr)
 			exit(1);
 		if (read(fd, &(crn->header.prog_size), 4) != 4)
 			exit(1);
-		if (crn->header.prog_size > CHAMP_MAX_SIZE)
-			exit(1);
-		if (read(fd, crn->header.comment, COMMENT_LENGTH) != COMMENT_LENGTH)
-			exit(1);
+		a = ft_read_data_bytes(fd);
+//        if (ft_read_data_bytes(fd) > CHAMP_MAX_SIZE)
+//            exit(1);
+        if (read(fd, crn->header.comment, COMMENT_LENGTH) != COMMENT_LENGTH)
+            exit(1);
+        if (read(fd, &nulls, 4) != 4)
+            exit(1);
 		if (read(fd, &nulls, 4) != 4)
 			exit(1);
 		crn->pc = MEM_SIZE / cnt_plr * (crn->unic_num_plr - 1);
