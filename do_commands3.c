@@ -41,7 +41,8 @@ void	ft_oper_ldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 
 void	ft_oper_sti(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
-	write_bytes(crnt_carr->pc + (get_arg_value(crnt_carr, 1, map) +
-				get_arg_value(crnt_carr, 2, map)) % IDX_MOD,
-			crnt_carr->reg[crnt_carr->command.argum[0]], map);
+	write_bytes_from_int(&map[crnt_carr->pc +
+	(get_arg_value(crnt_carr, 1, map) +
+	get_arg_value(crnt_carr, 2, map)) % IDX_MOD],
+			(unsigned int)crnt_carr->reg[crnt_carr->command.argum[0]]);
 }

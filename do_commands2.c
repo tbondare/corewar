@@ -18,10 +18,8 @@ void	ft_oper_st(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 		crnt_carr->reg[crnt_carr->command.argum[0]] =
 			crnt_carr->reg[crnt_carr->command.argum[1]];
 	else if (crnt_carr->command.argum_types[1] == T_IND)
-	{
-		write_bytes(crnt_carr->command.argum[1] % IDX_MOD + crnt_carr->pc,
-				crnt_carr->command.argum[0], map);
-	}
+		write_bytes_from_int(&map[crnt_carr->command.argum[1] %
+		IDX_MOD + crnt_carr->pc], (unsigned int)crnt_carr->command.argum[0]);
 }
 
 void	ft_oper_add(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)

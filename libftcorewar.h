@@ -106,7 +106,6 @@ typedef struct					s_vm_data
 	t_carriage					*frst;
 	t_carriage					*last_pl_said_alive;
 	int							loop_num;
-	int is_dump;
 	int dump_num;
 }								t_vm_data;
 
@@ -176,6 +175,8 @@ int ft_bytes_to_int(unsigned char *bytes, int num_bytes);
 int ft_read_data_bytes(int fd);
 void ft_print_memory(const void *add, size_t size);
 
+
+
 int								read_inp_str(int argc, char **argv, t_vm_data *data);
 int								define_next_unic_num(t_carriage *frst);
 int								found_flg_min_n(char **argv, int *j, t_carriage **frst, int *cnt_plr);
@@ -187,7 +188,7 @@ void							add_player_to_list_crn(t_carriage **crn, char *argv, t_carriage *frst
 
 int								get_arg_value(t_carriage *crnt_carr, int index_arg, unsigned char *map);
 int								read_bytes(int start_address, unsigned char *map, int num_bytes);
-void							write_bytes(int start_address, int value, unsigned char *map);
+void write_bytes_from_int(unsigned char *output, unsigned int val);
 void							change_carry(t_carriage *crnt_carr, int ind);
 
 void							ft_corewar(unsigned char *map, t_vm_data *data);

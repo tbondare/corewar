@@ -97,15 +97,13 @@ int	read_inp_str(int argc, char **argv, t_vm_data *data)
 
 	j = 1;
 	cnt_plr = 0;
-	if (ft_strequ(argv[j], "-dump") == 1)
-	{
-		data->is_dump = 1;
-		data->dump_num = ft_atoi(argv[++j]);
-		j++;
-	}
 	while (j < argc && cnt_plr <= MAX_PLAYERS)
 	{
-		if (found_flg_min_n(argv, &j, &data->frst, &cnt_plr) == 1)
+		if (ft_strequ(argv[j], "-dump") == 1)
+		{
+			data->dump_num = ft_atoi(argv[++j]);
+		}
+		else if (found_flg_min_n(argv, &j, &data->frst, &cnt_plr) == 1)
         {
             if (found_point_cor(argv[j]) == 1)
             {

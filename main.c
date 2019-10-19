@@ -47,8 +47,7 @@ int		main(int argc, char **argv)
 	t_vm_data	data;
 
 	data.frst = NULL;
-	data.is_dump = 0;
-	data.dump_num = 0;
+	data.dump_num = -1;
 	cnt_plr = read_inp_str(argc, argv, &data);
 	if (!data.frst)
 	{

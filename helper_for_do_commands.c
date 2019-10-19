@@ -39,16 +39,16 @@ int		read_bytes(int start_address, unsigned char *map, int num_bytes)
 	return (ft_bytes_to_int(bytes, num_bytes));
 }
 
-void	write_bytes(int start_address, int value, unsigned char *map)
+void write_bytes_from_int(unsigned char *output, unsigned int val)
 {
-	int i;
+	int j;
 
-	i = 0;
-	while (i < 4)
+	j = 3;
+	while(j >= 0)
 	{
-		map[start_address] = ((unsigned char*)(&value))[i];
-		start_address = (start_address + 1) % MEM_SIZE;
-		i++;
+		output[j] = (unsigned char)(val & 255);
+		val = val >> 8;
+		j--;
 	}
 }
 

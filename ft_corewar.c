@@ -111,7 +111,7 @@ void	ft_corewar(unsigned char *map, t_vm_data *data)
 			data->loop_num++;
 			if (data->loop_num == data->dump_num)
 			{
-				ft_print_memory();
+				ft_print_memory(map, MEM_SIZE);
 				exit(0);
 			}
 			cnt = 0;
