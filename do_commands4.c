@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 19:50:50 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/16 19:54:23 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/19 20:04:23 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	ft_oper_lldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 					get_arg_value(crnt_carr, 1, map)), map, 4);
 }
 
-void	ft_oper_lfork(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
+void	ft_oper_lfork(t_carriage *crnt_carr, unsigned char *map,
+		t_vm_data *data)
 {
 	copy_carr(crnt_carr, data, crnt_carr->pc + crnt_carr->command.argum[0]);
 }

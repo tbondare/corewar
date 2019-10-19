@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:00:23 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/16 20:03:14 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/19 20:17:50 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		get_arg_value(t_carriage *crnt_carr, int index_arg, unsigned char *map)
 int		read_bytes(int start_address, unsigned char *map, int num_bytes)
 {
 	unsigned char	bytes[4];
-	int		i;
+	int				i;
 
 	i = 0;
 	ft_bzero(bytes, 4);
@@ -39,12 +39,12 @@ int		read_bytes(int start_address, unsigned char *map, int num_bytes)
 	return (ft_bytes_to_int(bytes, num_bytes));
 }
 
-void write_bytes_from_int(unsigned char *output, unsigned int val)
+void	write_bytes_from_int(unsigned char *output, unsigned int val)
 {
 	int j;
 
 	j = 3;
-	while(j >= 0)
+	while (j >= 0)
 	{
 		output[j] = (unsigned char)(val & 255);
 		val = val >> 8;

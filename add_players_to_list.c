@@ -6,13 +6,14 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:19:08 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/16 20:22:42 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/19 20:03:24 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftcorewar.h"
 
-void		add_player_to_list_crn(t_carriage **crn, char *argv, t_carriage *frst)
+void		add_player_to_list_crn(t_carriage **crn, char *argv,
+		t_carriage *frst)
 {
 	while ((*crn)->next)
 		(*crn) = (*crn)->next;
