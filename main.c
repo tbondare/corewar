@@ -47,9 +47,14 @@ int		main(int argc, char **argv)
 	t_vm_data	data;
 
 	data.frst = NULL;
-	cnt_plr = read_inp_str(argc, argv, &data.frst);
+	data.is_dump = 0;
+	data.dump_num = 0;
+	cnt_plr = read_inp_str(argc, argv, &data);
 	if (!data.frst)
+	{
+		ft_putstr("invalid input str");
 		exit(1);
+	}
 	map = create_mem_map();
 	read_data_players(data.frst, map, cnt_plr);
 	sorting_list_carriage(&data.frst);

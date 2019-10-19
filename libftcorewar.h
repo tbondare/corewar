@@ -106,6 +106,8 @@ typedef struct					s_vm_data
 	t_carriage					*frst;
 	t_carriage					*last_pl_said_alive;
 	int							loop_num;
+	int is_dump;
+	int dump_num;
 }								t_vm_data;
 
 typedef struct					s_op
@@ -174,7 +176,7 @@ int ft_bytes_to_int(unsigned char *bytes, int num_bytes);
 int ft_read_data_bytes(int fd);
 void ft_print_memory(const void *add, size_t size);
 
-int								read_inp_str(int argc, char **argv, t_carriage **frst);
+int								read_inp_str(int argc, char **argv, t_vm_data *data);
 int								define_next_unic_num(t_carriage *frst);
 int								found_flg_min_n(char **argv, int *j, t_carriage **frst, int *cnt_plr);
 int								found_same_unic_num (t_carriage **frst, int djt, int cnt_plr);

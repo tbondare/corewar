@@ -90,21 +90,27 @@ int	define_next_unic_num(t_carriage *frst)
 	return (num);
 }
 
-int	read_inp_str(int argc, char **argv, t_carriage **frst)
+int	read_inp_str(int argc, char **argv, t_vm_data *data)
 {
 	int j;
 	int cnt_plr;
 
 	j = 1;
 	cnt_plr = 0;
+	if (ft_strequ(argv[j], "-dump") == 1)
+	{
+		data->is_dump = 1;
+		data->dump_num = ft_atoi(argv[++j]);
+		j++;
+	}
 	while (j < argc && cnt_plr <= MAX_PLAYERS)
 	{
-		if (found_flg_min_n(argv, &j, frst, &cnt_plr) == 1)
+		if (found_flg_min_n(argv, &j, &data->frst, &cnt_plr) == 1)
         {
             if (found_point_cor(argv[j]) == 1)
             {
                 cnt_plr++;
-                add_player_to_list(frst, argv[j]);
+                add_player_to_list(&data->frst, argv[j]);
             }
         }
 		j++;

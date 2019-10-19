@@ -37,25 +37,56 @@ void	read_data_players(t_carriage *frst, unsigned char *map, int cnt_plr)
 	{
 		fd = open(crn->file_name, O_RDONLY);
 		if (fd == -1)
+		{
+			ft_putstr("invalid fd");
 			exit(1);
+		}
         if (ft_read_data_bytes(fd) != COREWAR_EXEC_MAGIC)
-            exit(1);
+		{
+			ft_putstr("invalid COREWAR_EXEC_MAGIC of player ");
+			ft_putstr(crn->file_name);
+        	exit(1);
+		}
 		if (read(fd, crn->header.prog_name, PROG_NAME_LENGTH) !=
 			PROG_NAME_LENGTH)
+		{
+			ft_putstr("invalid PROG_NAME_LENGTH ");
+			ft_putstr(crn->file_name);
 			exit(1);
+		}
 		if (read(fd, &nulls, 4) != 4)
+		{
+			ft_putstr("invalid nulls after PROG_NAME_LENGTH ");
+			ft_putstr(crn->file_name);
 			exit(1);
+		}
 		crn->header.prog_size = ft_read_data_bytes(fd);
         if (crn->header.prog_size > CHAMP_MAX_SIZE)
-            exit(1);
+		{
+        	ft_putstr("invalid CHAMP_MAX_SIZE ");
+			ft_putstr(crn->file_name);
+        	exit(1);
+		}
         if (read(fd, crn->header.comment, COMMENT_LENGTH) != COMMENT_LENGTH)
-            exit(1);
+		{
+			ft_putstr("invalid COMMENT_LENGTH ");
+			ft_putstr(crn->file_name);
+        	exit(1);
+		}
         if (read(fd, &nulls, 4) != 4)
-            exit(1);
+		{
+			ft_putstr("invalid nulls_after_COMMENT_LENGTH ");
+			ft_putstr(crn->file_name);
+			exit(1);
+		}
 		crn->pc = MEM_SIZE / cnt_plr * (crn->unic_num_plr - 1);
 		if (read(fd, &map[crn->pc], crn->header.prog_size) !=
 			crn->header.prog_size)
+		{
+			ft_putstr("invalid header.prog_size ");
+			ft_putstr(crn->file_name);
 			exit(1);
+		}
 		crn = crn->next;
 	}
 }
