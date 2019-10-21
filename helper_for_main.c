@@ -98,10 +98,11 @@ void	sorting_list_carriage(t_carriage **frst)
 	int			i;
 
 	i = 0;
-	mem[0] = NULL;
+	ft_bzero(mem, 4);
 	while (i <= MAX_PLAYERS)
 	{
 		crnt = *frst;
+		mem[0] = NULL;
 		while (crnt)
 		{
 			if (crnt->next != NULL &&
@@ -156,14 +157,7 @@ void ft_print_memory(const void *add, size_t size)
 		if ((i + 1) % 2)
 			write(1, " ", 1);
 		if (!(i % 16))
-		{
-			while (j <= i)
-			{
-				c = var[j++];
-				write(1, &c, 1);
-			}
 			write(1, "\n", 1);
-		}
 	}
 	if (i % 16)
 	{
