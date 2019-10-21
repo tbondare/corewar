@@ -56,6 +56,7 @@ int		main(int argc, char **argv)
 	}
 	map = create_mem_map();
 	read_data_players(data.frst, map, cnt_plr);
+	write_introduction(data.frst);
 	sorting_list_carriage(&data.frst);
 	init_vm_data(&data);
 	ft_corewar(map, &data);

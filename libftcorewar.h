@@ -173,7 +173,8 @@ unsigned char					*create_mem_map();
 
 int ft_bytes_to_int(unsigned char *bytes, int num_bytes);
 int ft_read_data_bytes(int fd);
-void ft_print_memory(const void *add, size_t size);
+void ft_print_memory(const unsigned char *var, size_t size);
+void write_introduction(t_carriage *frst);
 
 
 

@@ -24,6 +24,27 @@ int ft_read_data_bytes(int fd)
 	return (ft_bytes_to_int(bytes, 4));
 }
 
+void write_introduction(t_carriage *frst)
+{
+	t_carriage *crn;
+
+	crn = frst;
+	ft_putstr("Introduction contestants...\n");
+	while (crn)
+	{
+		ft_putstr("* Player ");
+		ft_putnbr(crn->unic_num_plr);
+		ft_putstr(", weighting ");
+		ft_putnbr(crn->header.prog_size);
+		ft_putstr(" bytes, \"");
+		ft_putstr(crn->header.prog_name);
+		ft_putstr("\" (\"");
+		ft_putstr(crn->header.comment);
+		ft_putstr("\") ! \n");
+		crn = crn->next;
+	}
+}
+
 void	read_data_players(t_carriage *frst, unsigned char *map, int cnt_plr)
 {
 	int			fd;
@@ -31,7 +52,6 @@ void	read_data_players(t_carriage *frst, unsigned char *map, int cnt_plr)
 	int			nulls;
 	unsigned char bytes[4];
 
-	int a;
 	crn = frst;
 	while (crn)
 	{
@@ -126,18 +146,36 @@ void	sorting_list_carriage(t_carriage **frst)
 	}
 }
 
-void ft_print_memory(const void *add, size_t size)
+void print_address(int i)
 {
-	const unsigned char *var;
+	char str[4];
+	int j;
+
+	j = 3;
+	ft_memset(str, '0', 4);
+	write(1, "0", 1);
+	write(1, "x", 1);
+	while (j >= 0 && i)
+	{
+		if (i % 16 > 9)
+			str[j] = i % 16 + 'a' - 10;
+		else
+			str[j] = i % 16 + '0';
+		i = i / 16;
+		j--;
+	}
+	write(1, str, 4);
+	write(1, " : ", 3);
+}
+
+void ft_print_memory(const unsigned char *var, size_t size)
+{
 	int i;
 	char c;
 	unsigned char prev;
-	int j;
-	int mem_j;
 
-	var = (const unsigned char*)add;
 	i = 0;
-	j = 0;
+	print_address(i);
 	while (size--)
 	{
 		prev = var[i];
@@ -154,26 +192,11 @@ void ft_print_memory(const void *add, size_t size)
 			c = prev % 16 + '0';
 		write(1, &c, 1);
 		i++;
-		if ((i + 1) % 2)
-			write(1, " ", 1);
-		if (!(i % 16))
+		write(1, " ", 1);
+		if (!(i % 64) && size != 0)
+		{
 			write(1, "\n", 1);
-	}
-	if (i % 16)
-	{
-		mem_j = i - j;
-		while (i % 16)
-		{
-			write(1, "  ", 2);
-			if ((i + 1) % 2)
-				write(1, " ", 1);
-			i++;
+			print_address(i);
 		}
-		while (mem_j--)
-		{
-			c = var[j++];
-			write(1, &c, 1);
-		}
-		write(1, "\n", 1);
 	}
 }

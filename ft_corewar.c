@@ -82,9 +82,11 @@ void	do_crnt_carr(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 
 void print_chemp_name(t_vm_data *data)
 {
-	ft_printf("Player %d (%s) won",
-			data->last_pl_said_alive->unic_num_plr,
-			data->last_pl_said_alive->file_name);
+	ft_putstr("Contestant ");
+	ft_putnbr(data->last_pl_said_alive->unic_num_plr);
+	ft_putstr(", \"");
+	ft_putstr(data->last_pl_said_alive->header.prog_name);
+	ft_putstr("\", has won !");
 }
 
 void	ft_corewar(unsigned char *map, t_vm_data *data)
