@@ -6,19 +6,22 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:19:08 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/19 20:03:24 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:45:43 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftcorewar.h"
 
-void		add_player_to_list_crn(t_carriage **crn, char *argv,
+void			add_player_to_list_crn(t_carriage **crn, char *argv,
 		t_carriage *frst)
 {
+	int reg_number;
+
+	reg_number = REG_NUMBER;
 	while ((*crn)->next)
 		(*crn) = (*crn)->next;
 	(*crn)->next = (t_carriage *)malloc(sizeof(t_carriage));
-	ft_bzero((*crn)->next->reg, REG_NUMBER * sizeof(int));
+	ft_bzero((*crn)->next->reg, reg_number * sizeof(int));
 	(*crn)->next->is_killed = 0;
 	(*crn)->next->unic_num_plr = 0;
 	(*crn)->next->file_name = argv;
@@ -34,7 +37,7 @@ void		add_player_to_list_crn(t_carriage **crn, char *argv,
 	(*crn)->next->next = NULL;
 }
 
-t_carriage	*add_player_to_list(t_carriage **frst, char *argv)
+t_carriage		*add_player_to_list(t_carriage **frst, char *argv)
 {
 	t_carriage *crn;
 

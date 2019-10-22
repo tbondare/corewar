@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:23:30 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/16 20:34:58 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:55:46 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ unsigned char	*create_mem_map(void)
 	return (map);
 }
 
-void	init_vm_data(t_vm_data *data)
+void			init_vm_data(t_vm_data *data)
 {
 	data->last_pl_said_alive = data->frst;
 	data->loop_num = 0;
 }
 
-void free_mem(unsigned char *map, t_vm_data *data)
+void			free_mem(unsigned char *map, t_vm_data *data)
 {
 	t_carriage *next;
 
@@ -40,11 +40,11 @@ void free_mem(unsigned char *map, t_vm_data *data)
 	}
 }
 
-int		main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
-	unsigned char		*map;
-	int			cnt_plr;
-	t_vm_data	data;
+	unsigned char	*map;
+	int				cnt_plr;
+	t_vm_data		data;
 
 	data.frst = NULL;
 	data.dump_num = -1;

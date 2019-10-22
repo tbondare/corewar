@@ -6,13 +6,14 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:03:44 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/16 20:07:30 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:56:44 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftcorewar.h"
 
-void	read_command_argum(t_carriage *crnt_carr, unsigned char *map, int i_argum)
+void	read_command_argum(t_carriage *crnt_carr, unsigned char *map,
+		int i_argum)
 {
 	int crnt_arg_size;
 
@@ -22,7 +23,8 @@ void	read_command_argum(t_carriage *crnt_carr, unsigned char *map, int i_argum)
 	crnt_carr->next_pc = (crnt_carr->next_pc + crnt_arg_size) % MEM_SIZE;
 }
 
-void	read_com_argums(t_op *info_com, t_carriage *crnt_carr, unsigned char *map)
+void	read_com_argums(t_op *info_com, t_carriage *crnt_carr,
+		unsigned char *map)
 {
 	int i_argum;
 
