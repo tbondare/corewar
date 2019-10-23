@@ -20,7 +20,7 @@ void	copy_carr(t_carriage *crnt_carr, t_vm_data *data, int new_pc)
 	ft_memcpy(new_carr->reg, crnt_carr->reg, sizeof(int) * REG_NUMBER);
 	new_carr->unic_num_plr = crnt_carr->unic_num_plr;
 	new_carr->file_name = crnt_carr->file_name;
-	new_carr->command.num_cycle = crnt_carr->command.num_cycle;
+	new_carr->command.num_cycle = -1;
 	new_carr->cycles_to_die = crnt_carr->cycles_to_die;
 	new_carr->num_checks = crnt_carr->num_checks;
 	new_carr->cnt_ccls_to_die = crnt_carr->cnt_ccls_to_die;
