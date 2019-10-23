@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 16:17:12 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/22 17:48:01 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/22 16:24:57 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	print_address(int i)
 	write(1, " : ", 3);
 }
 
-void	next_line_and_print_add(int i, int size)
+void next_line_and_print_add(int i, int size)
 {
-	if (!(i % 64) && size != 0)
-	{
-		write(1, "\n", 1);
-		print_address(i);
-	}
+    if (!(i % 64) && size != 0)
+    {
+        write(1, "\n", 1);
+        print_address(i);
+    }
 }
 
 void	ft_print_memory(const unsigned char *var, size_t size)

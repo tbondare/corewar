@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:08:14 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/22 18:04:49 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/16 20:16:36 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ int	read_inp_str(int argc, char **argv, t_vm_data *data)
 			data->dump_num = ft_atoi(argv[++j]);
 		}
 		else if (found_flg_min_n(argv, &j, &data->frst, &cnt_plr) == 1)
-		{
-			if (found_point_cor(argv[j]) == 1)
-			{
-				cnt_plr++;
-				add_player_to_list(&data->frst, argv[j]);
-			}
-		}
+        {
+            if (found_point_cor(argv[j]) == 1)
+            {
+                cnt_plr++;
+                add_player_to_list(&data->frst, argv[j]);
+            }
+        }
 		j++;
 	}
 	return (cnt_plr);

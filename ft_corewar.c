@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 19:54:48 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/22 17:46:04 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/22 16:10:32 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	print_chemp_name(t_vm_data *data)
 	ft_putstr("\", has won !");
 }
 
-void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data)
+void if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data)
 {
-	if (data->loop_num == data->dump_num)
-	{
-		ft_print_memory(map, MEM_SIZE);
-		exit(0);
-	}
+    if (data->loop_num == data->dump_num)
+    {
+        ft_print_memory(map, MEM_SIZE);
+        exit(0);
+    }
 }
 
 void	ft_corewar(unsigned char *map, t_vm_data *data)
@@ -52,7 +52,7 @@ void	ft_corewar(unsigned char *map, t_vm_data *data)
 			}
 			crnt_carr = data->frst;
 			data->loop_num++;
-			if_loop_num_q_dump_num(map, data);
+            if_loop_num_q_dump_num(map, data);
 			cnt = 0;
 		}
 	}
