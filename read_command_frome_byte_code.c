@@ -23,19 +23,33 @@ void	read_command_argum(t_carriage *crnt_carr, unsigned char *map,
 	crnt_carr->next_pc = (crnt_carr->next_pc + crnt_arg_size) % MEM_SIZE;
 }
 
-void	read_com_argums(t_op *info_com, t_carriage *crnt_carr,
+int		read_com_argums(t_op *info_com, t_carriage *crnt_carr,
 		unsigned char *map)
 {
 	int i_argum;
 
 	i_argum = 0;
-	read_command_argum(crnt_carr, map, i_argum);
+	read_command_argum(crnt_carr, map, i_argum++);
 	while (i_argum < info_com->argum_nums)
 	{
-		crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 		read_command_argum(crnt_carr, map, i_argum);
 		i_argum++;
 	}
+	i_argum = 0;
+	while (i_argum < info_com->argum_nums)
+	{
+		if (crnt_carr->command.argum_types[i_argum] == T_REG)
+		{
+			if (crnt_carr->command.argum[i_argum] < 1 || crnt_carr->command.argum[i_argum] > REG_NUMBER)
+			{
+				crnt_carr->pc = (crnt_carr->pc + 1) % MEM_SIZE;
+				return (0);
+			}
+			crnt_carr->command.argum[i_argum]--;
+		}
+		i_argum++;
+	}
+	return (1);
 }
 
 int		is_val_arg_tapes(t_op *info_com, t_carriage *crnt_carr)
@@ -45,8 +59,7 @@ int		is_val_arg_tapes(t_op *info_com, t_carriage *crnt_carr)
 	i = 0;
 	while (i < info_com->argum_nums)
 	{
-		if (!(crnt_carr->command.argum_types[i] && info_com->argum_types[i] ==
-					crnt_carr->command.argum_types[i]))
+		if (!(crnt_carr->command.argum_types[i] & info_com->argum_types[i]))
 			return (0);
 		i++;
 	}
@@ -60,8 +73,8 @@ void	read_arg_types(t_carriage *crnt_carr, unsigned char *map)
 	crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 	crnt_byte = map[crnt_carr->next_pc];
 	crnt_carr->command.argum_types[0] = code2t[crnt_byte >> 6];
-	crnt_carr->command.argum_types[1] = code2t[(crnt_byte << 2) >> 6];
-	crnt_carr->command.argum_types[2] = code2t[(crnt_byte << 4) >> 6];
+	crnt_carr->command.argum_types[1] = code2t[(crnt_byte >> 4) & 3];
+	crnt_carr->command.argum_types[2] = code2t[(crnt_byte >> 2) & 3];
 }
 
 int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
@@ -72,7 +85,7 @@ int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 	crnt_carr->next_pc = crnt_carr->pc;
 	if (is_val_command_oper_code(crnt_carr->command.oper_code) != 1)
 	{
-		crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
+		crnt_carr->pc = (crnt_carr->pc + 1) % MEM_SIZE;
 		return (0);
 	}
 	info_com = &op_tab[crnt_carr->command.oper_code];
@@ -83,8 +96,10 @@ int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 		if (is_val_arg_tapes(info_com, crnt_carr) != 0)
 			crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 		else
+		{
+			crnt_carr->pc = (crnt_carr->pc + 1) % MEM_SIZE;
 			return (0);
+		}
 	}
-	read_com_argums(info_com, crnt_carr, map);
-	return (1);
+	return (read_com_argums(info_com, crnt_carr, map));
 }

@@ -30,7 +30,11 @@ void	copy_carr(t_carriage *crnt_carr, t_vm_data *data, int new_pc)
 	new_carr->carry = crnt_carr->carry;
 	new_carr->next = data->frst;
 	data->frst = new_carr;
-	new_carr->pc = new_pc % MEM_SIZE;
+	new_pc = new_pc % MEM_SIZE;
+	if (new_pc < 0)
+		new_pc = MEM_SIZE + new_pc;
+	new_carr->pc = new_pc;
+	new_carr->next_pc = new_pc;
 }
 
 void	ft_oper_fork(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)

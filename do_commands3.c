@@ -29,7 +29,11 @@ void	ft_oper_xor(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 void	ft_oper_zjmp(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	if (crnt_carr->carry == 1)
-		crnt_carr->pc = crnt_carr->pc + crnt_carr->command.argum[0] % IDX_MOD;
+	{
+		crnt_carr->next_pc = (crnt_carr->pc + crnt_carr->command.argum[0] % IDX_MOD) % MEM_SIZE;
+		if (crnt_carr->next_pc < 0)
+			crnt_carr->next_pc = MEM_SIZE + crnt_carr->next_pc;
+	}
 }
 
 void	ft_oper_ldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
@@ -41,8 +45,8 @@ void	ft_oper_ldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 
 void	ft_oper_sti(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
-	write_bytes_from_int(&map[crnt_carr->pc +
+	write_bytes_from_int(crnt_carr->pc +
 	(get_arg_value(crnt_carr, 1, map) +
-	get_arg_value(crnt_carr, 2, map)) % IDX_MOD],
+	get_arg_value(crnt_carr, 2, map)) % IDX_MOD, map,
 			(unsigned int)crnt_carr->reg[crnt_carr->command.argum[0]]);
 }

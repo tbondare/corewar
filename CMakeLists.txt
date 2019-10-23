@@ -5,9 +5,9 @@ set(CMAKE_C_STANDARD 99)
 
 include_directories(libft/ft_printf/inc)
 
-add_executable(corewar main.c
+add_executable(corewar
+        main.c
         ft_corewar.c
-        do_commands1.c
         libftcorewar.h
         libft/ft_lstcnt.c
         libft/ft_memmove.c
@@ -98,4 +98,17 @@ add_executable(corewar main.c
         libft/ft_printf/src/ft_determ_argc.c
         libft/ft_printf/src/itoa_printf.c
         libft/ft_printf/src/itoa_printf_o_x_b.c
-        do_commands1.c read_input_str.c add_players_to_list.c do_commands2.c do_commands3.c do_commands4.c helper_for_do_commands.c read_command_frome_byte_code.c helper_for_read_command_frome_byte_code.c helper_for_main.c)
+        do_commands1.c
+        read_input_str.c
+        add_players_to_list.c
+        do_commands2.c
+        do_commands3.c
+        do_commands4.c
+        helper_for_do_commands.c
+        read_command_frome_byte_code.c
+        helper_for_read_command_frome_byte_code.c
+        helper_for_main.c
+        do_crnt_carr.c
+        ft_print_memory.c
+        read_data_players.c
+        )

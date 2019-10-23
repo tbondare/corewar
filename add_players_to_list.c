@@ -34,6 +34,7 @@ void			add_player_to_list_crn(t_carriage **crn, char *argv,
 	(*crn)->next->num_cycle_end_alive = -1;
 	(*crn)->next->carry = -1;
 	(*crn)->next->unic_num_plr = define_next_unic_num(frst);
+	(*crn)->next->reg[0] = -(*crn)->next->unic_num_plr;
 	(*crn)->next->next = NULL;
 }
 
@@ -58,6 +59,7 @@ t_carriage		*add_player_to_list(t_carriage **frst, char *argv)
 		(*frst)->num_cycle_end_alive = -1;
 		(*frst)->carry = -1;
 		(*frst)->unic_num_plr = define_next_unic_num(*frst);
+		(*frst)->reg[0] = -(*frst)->unic_num_plr;
 		(*frst)->next = NULL;
 		return (*frst);
 	}

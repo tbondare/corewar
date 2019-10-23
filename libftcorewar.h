@@ -57,7 +57,7 @@ typedef char					t_arg_type;
 # define T_LAB					8
 
 static char						code2t[4] = {0, T_REG, T_DIR, T_IND};
-static int						t2size[5] = {0, REG_SIZE, DIR_SIZE, 0, IND_SIZE};
+static int						t2size[5] = {0, 1, DIR_SIZE, 0, IND_SIZE};
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
@@ -121,6 +121,7 @@ typedef struct					s_op
 	int							trash;
 	void						(*fun)(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 }								t_op;
+
 void							ft_oper_live(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 void							ft_oper_ld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 void							ft_oper_st(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
@@ -166,17 +167,26 @@ static t_op						op_tab[17] =
 };
 
 int								main(int argc, char **argv);
+void free_mem(unsigned char *map, t_vm_data *data);
 void							init_vm_data(t_vm_data *data);
-void							sorting_list_carriage(t_carriage **frst);
-void							read_data_players(t_carriage *frst, unsigned char *map, int cnt_plr);
 unsigned char					*create_mem_map();
+
+void							sorting_list_carriage(t_carriage **frst);
+void swap_list_items(t_carriage **frst, t_carriage *crnt, t_carriage *mem[4]);
+void	write_introduction(t_carriage *frst);
+
+void							read_data_players(t_carriage *frst, unsigned char *map, int cnt_plr);
+void	read_data_players3(t_carriage *crn, int *fd, unsigned char *map, int *cnt_plr);
+void	read_data_players2(t_carriage *crn, int *fd);
+int		ft_read_data_bytes(int fd);
+int		ft_bytes_to_int(unsigned char *bytes, int num_bytes);
 
 int ft_bytes_to_int(unsigned char *bytes, int num_bytes);
 int ft_read_data_bytes(int fd);
+
 void ft_print_memory(const unsigned char *var, size_t size);
-void write_introduction(t_carriage *frst);
-
-
+void	next_line_and_print_add(int i, int size);
+void	print_address(int i);
 
 int								read_inp_str(int argc, char **argv, t_vm_data *data);
 int								define_next_unic_num(t_carriage *frst);
@@ -189,10 +199,13 @@ void							add_player_to_list_crn(t_carriage **crn, char *argv, t_carriage *frst
 
 int								get_arg_value(t_carriage *crnt_carr, int index_arg, unsigned char *map);
 int								read_bytes(int start_address, unsigned char *map, int num_bytes);
-void write_bytes_from_int(unsigned char *output, unsigned int val);
+void write_bytes_from_int(int start_address, unsigned char *map, unsigned int val);
 void							change_carry(t_carriage *crnt_carr, int ind);
 
 void							ft_corewar(unsigned char *map, t_vm_data *data);
+void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data);
+void	print_chemp_name(t_vm_data *data);
+
 void							do_crnt_carr(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 void							do_check(t_carriage *crnt_carr, t_vm_data *data);
 void							check_alive(t_carriage *crnt_carr, t_vm_data *data);
@@ -201,10 +214,12 @@ void							do_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data
 int								read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map);
 void							read_arg_types(t_carriage *crnt_carr, unsigned char *map);
 int								is_val_arg_tapes(t_op *info_com, t_carriage *crnt_carr);
-void							read_com_argums(t_op *info_com, t_carriage *crnt_carr, unsigned char *map);
+int								read_com_argums(t_op *info_com, t_carriage *crnt_carr, unsigned char *map);
 void							read_command_argum(t_carriage *crnt_carr, unsigned char *map, int i_argum);
 
 int								is_val_command_oper_code(int crnt_oper_code);
 int								is_argum_type(t_op *info_com, t_carriage *crnt_carr);
+
+void	copy_carr(t_carriage *crnt_carr, t_vm_data *data, int new_pc);
 
 #endif

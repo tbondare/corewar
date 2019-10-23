@@ -19,6 +19,8 @@ int		ft_bytes_to_int(unsigned char *bytes, int num_bytes)
 
 	i = 0;
 	val = 0;
+	if (num_bytes == 2 && (bytes[0] & 0x80))
+		val = 0xffffffff;
 	while (i < num_bytes)
 	{
 		val = val << 8;
