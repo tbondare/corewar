@@ -6,13 +6,14 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:03:44 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/16 20:07:30 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:56:44 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftcorewar.h"
 
-void	read_command_argum(t_carriage *crnt_carr, unsigned char *map, int i_argum)
+void	read_command_argum(t_carriage *crnt_carr, unsigned char *map,
+		int i_argum)
 {
 	int crnt_arg_size;
 
@@ -22,7 +23,8 @@ void	read_command_argum(t_carriage *crnt_carr, unsigned char *map, int i_argum)
 	crnt_carr->next_pc = (crnt_carr->next_pc + crnt_arg_size) % MEM_SIZE;
 }
 
-void	read_com_argums(t_op *info_com, t_carriage *crnt_carr, unsigned char *map)
+void	read_com_argums(t_op *info_com, t_carriage *crnt_carr,
+		unsigned char *map)
 {
 	int i_argum;
 
@@ -43,7 +45,7 @@ int		is_val_arg_tapes(t_op *info_com, t_carriage *crnt_carr)
 	i = 0;
 	while (i < info_com->argum_nums)
 	{
-		if (!(crnt_carr->command.argum_types[i] && info_com->argum_types[i] &
+		if (!(crnt_carr->command.argum_types[i] && info_com->argum_types[i] ==
 					crnt_carr->command.argum_types[i]))
 			return (0);
 		i++;
@@ -58,8 +60,8 @@ void	read_arg_types(t_carriage *crnt_carr, unsigned char *map)
 	crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 	crnt_byte = map[crnt_carr->next_pc];
 	crnt_carr->command.argum_types[0] = code2t[crnt_byte >> 6];
-	crnt_carr->command.argum_types[1] = code2t[(crnt_byte >> 4) & 3];
-	crnt_carr->command.argum_types[2] = code2t[(crnt_byte >> 2) & 3];
+	crnt_carr->command.argum_types[1] = code2t[(crnt_byte << 2) >> 6];
+	crnt_carr->command.argum_types[2] = code2t[(crnt_byte << 4) >> 6];
 }
 
 int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
