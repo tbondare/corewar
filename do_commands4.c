@@ -39,6 +39,7 @@ void	copy_carr(t_carriage *crnt_carr, t_vm_data *data, int new_pc)
 
 void	ft_oper_fork(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
+    (void)map;
 	copy_carr(crnt_carr, data, crnt_carr->pc +
 			crnt_carr->command.argum[0] % IDX_MOD);
 }
@@ -47,6 +48,7 @@ void	ft_oper_lld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	int address;
 
+    (void)data;
 	if (crnt_carr->command.argum_types[0] == T_DIR)
 		crnt_carr->reg[crnt_carr->command.argum[1]] =
 			crnt_carr->command.argum[0];
@@ -61,6 +63,7 @@ void	ft_oper_lld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 
 void	ft_oper_lldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
+    (void)data;
 	crnt_carr->reg[crnt_carr->command.argum[2]] =
 		read_bytes(crnt_carr->pc + (get_arg_value(crnt_carr, 0, map) +
 					get_arg_value(crnt_carr, 1, map)), map, 4);
@@ -69,5 +72,6 @@ void	ft_oper_lldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 void	ft_oper_lfork(t_carriage *crnt_carr, unsigned char *map,
 		t_vm_data *data)
 {
+    (void)map;
 	copy_carr(crnt_carr, data, crnt_carr->pc + crnt_carr->command.argum[0]);
 }

@@ -17,18 +17,18 @@ void	write_introduction(t_carriage *frst)
 	t_carriage *crn;
 
 	crn = frst;
-	ft_putstr("Introduction contestants...\n");
+	ft_putstr("Introducing contestants...\n");
 	while (crn)
 	{
 		ft_putstr("* Player ");
 		ft_putnbr(crn->unic_num_plr);
-		ft_putstr(", weighting ");
+		ft_putstr(", weighing ");
 		ft_putnbr(crn->header.prog_size);
 		ft_putstr(" bytes, \"");
 		ft_putstr(crn->header.prog_name);
 		ft_putstr("\" (\"");
 		ft_putstr(crn->header.comment);
-		ft_putstr("\") ! \n");
+		ft_putstr("\") !\n");
 		crn = crn->next;
 	}
 }

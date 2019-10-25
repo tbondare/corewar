@@ -21,6 +21,8 @@ int		get_arg_value(t_carriage *crnt_carr, int index_arg, unsigned char *map)
 	if (crnt_carr->command.argum_types[index_arg] == T_IND)
 		return (read_bytes(crnt_carr->command.argum[index_arg] %
 					IDX_MOD + crnt_carr->pc, map, 4));
+    else
+        return (0);
 }
 
 int		read_bytes(int start_address, unsigned char *map, int num_bytes)

@@ -14,6 +14,8 @@
 
 void	ft_oper_live(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
+    (void)data;
+    (void)map;
 	if (crnt_carr->command.argum[0] == -crnt_carr->unic_num_plr)
 	{
 		crnt_carr->num_cycle_end_alive = data->loop_num;
@@ -26,6 +28,7 @@ void	ft_oper_ld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	int address;
 
+    (void)data;
 	if (crnt_carr->command.argum_types[0] == T_DIR)
 		crnt_carr->reg[crnt_carr->command.argum[1]] =
 			crnt_carr->command.argum[0];
@@ -40,5 +43,7 @@ void	ft_oper_ld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 
 void	ft_oper_aff(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
+    (void)map;
+    (void)data;
 	write(1, &crnt_carr->reg[crnt_carr->command.argum[0]], 1);
 }

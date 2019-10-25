@@ -17,7 +17,7 @@ void	read_command_argum(t_carriage *crnt_carr, unsigned char *map,
 {
 	int crnt_arg_size;
 
-	crnt_arg_size = t2size[crnt_carr->command.argum_types[i_argum]];
+	crnt_arg_size = g_t2size[(int)crnt_carr->command.argum_types[i_argum]];
 	crnt_carr->command.argum[i_argum] =
 		read_bytes(crnt_carr->next_pc, map, crnt_arg_size);
 	crnt_carr->next_pc = (crnt_carr->next_pc + crnt_arg_size) % MEM_SIZE;
@@ -72,9 +72,9 @@ void	read_arg_types(t_carriage *crnt_carr, unsigned char *map)
 
 	crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 	crnt_byte = map[crnt_carr->next_pc];
-	crnt_carr->command.argum_types[0] = code2t[crnt_byte >> 6];
-	crnt_carr->command.argum_types[1] = code2t[(crnt_byte >> 4) & 3];
-	crnt_carr->command.argum_types[2] = code2t[(crnt_byte >> 2) & 3];
+	crnt_carr->command.argum_types[0] = g_code2t[crnt_byte >> 6];
+	crnt_carr->command.argum_types[1] = g_code2t[(crnt_byte >> 4) & 3];
+	crnt_carr->command.argum_types[2] = g_code2t[(crnt_byte >> 2) & 3];
 }
 
 int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
@@ -88,7 +88,7 @@ int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 		crnt_carr->pc = (crnt_carr->pc + 1) % MEM_SIZE;
 		return (0);
 	}
-	info_com = &op_tab[crnt_carr->command.oper_code];
+	info_com = &tab_op[crnt_carr->command.oper_code];
 	crnt_carr->command.num_cycle = info_com->num_cycle - 1;
 	if (is_argum_type(info_com, crnt_carr) != 0)
 	{

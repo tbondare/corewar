@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:23:30 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/22 17:55:46 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/25 13:43:49 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int				main(int argc, char **argv)
 	cnt_plr = read_inp_str(argc, argv, &data);
 	if (!data.frst)
 	{
-		ft_putstr("invalid input str");
+		ft_putstr("invalid input str\n");
 		exit(1);
 	}
 	map = create_mem_map();
