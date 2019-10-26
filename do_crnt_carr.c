@@ -44,7 +44,8 @@ void print_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 	ft_putstr(" -> ");
 	print_address(crnt_carr->next_pc, "");
 	ft_putstr(") ");
-	ft_print_bytes(&map[crnt_carr->pc], crnt_carr->next_pc - crnt_carr->pc);
+	if (crnt_carr->next_pc > crnt_carr->pc)
+		ft_print_bytes(&map[crnt_carr->pc], crnt_carr->next_pc - crnt_carr->pc);
 	ft_putstr("\n");
 }
 

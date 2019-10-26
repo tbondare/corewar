@@ -12,12 +12,24 @@
 
 #include "libftcorewar.h"
 
+
+int set_arg_size_exceptions(int size, t_carriage *crnt_carr, int i_argum)
+{
+	if (crnt_carr->command.oper_code == 9 || crnt_carr->command.oper_code == 12 ||
+			(crnt_carr->command.oper_code == 11 && i_argum == 2 &&
+			crnt_carr->command.argum_types[i_argum] == T_DIR))
+		return(2);
+	return (size);
+}
+
+
 void	read_command_argum(t_carriage *crnt_carr, unsigned char *map,
 		int i_argum)
 {
 	int crnt_arg_size;
 
 	crnt_arg_size = g_t2size[(int)crnt_carr->command.argum_types[i_argum]];
+	crnt_arg_size = set_arg_size_exceptions(crnt_arg_size, crnt_carr, i_argum);
 	crnt_carr->command.argum[i_argum] =
 		read_bytes(crnt_carr->next_pc, map, crnt_arg_size);
 	crnt_carr->next_pc = (crnt_carr->next_pc + crnt_arg_size) % MEM_SIZE;
@@ -77,14 +89,6 @@ void	read_arg_types(t_carriage *crnt_carr, unsigned char *map)
 	crnt_carr->command.argum_types[2] = g_code2t[(crnt_byte >> 2) & 3];
 }
 
-void set_arg_types(t_op *info_com, t_carriage *crnt_carr)
-{
-	if (info_com->oper_code == 9 || info_com->oper_code == 12)
-		crnt_carr->command.argum_types[0] = T_IND;
-	else
-		crnt_carr->command.argum_types[0] = T_DIR;
-}
-
 int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 {
 	t_op *info_com;
@@ -108,7 +112,7 @@ int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 		}
 	}
 	else
-		set_arg_types(info_com, crnt_carr);
+		crnt_carr->command.argum_types[0] = T_DIR;
 	crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 	return (read_com_argums(info_com, crnt_carr, map));
 }
