@@ -77,6 +77,14 @@ void	read_arg_types(t_carriage *crnt_carr, unsigned char *map)
 	crnt_carr->command.argum_types[2] = g_code2t[(crnt_byte >> 2) & 3];
 }
 
+void set_arg_types(t_op *info_com, t_carriage *crnt_carr)
+{
+	if (info_com->oper_code == 9 || info_com->oper_code == 12)
+		crnt_carr->command.argum_types[0] = T_IND;
+	else
+		crnt_carr->command.argum_types[0] = T_DIR;
+}
+
 int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 {
 	t_op *info_com;
@@ -100,7 +108,7 @@ int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 		}
 	}
 	else
-		crnt_carr->command.argum_types[0] = T_IND;
+		set_arg_types(info_com, crnt_carr);
 	crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 	return (read_com_argums(info_com, crnt_carr, map));
 }

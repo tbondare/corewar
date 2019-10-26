@@ -17,9 +17,9 @@ void print_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 	int c;
 
     (void)data;
-	ft_putstr("P   ");
+	ft_putstr("P    ");
 	ft_putnbr(crnt_carr->unic_num_plr);
-	ft_putstr("|");
+	ft_putstr(" | ");
 	ft_putstr(tab_op[crnt_carr->command.oper_code].name);
 	ft_putstr(" ");
 	c = 0;
@@ -32,8 +32,9 @@ void print_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 		}
 		else
 			ft_putnbr(crnt_carr->command.argum[c]);
-		ft_putstr(" ");
 		c++;
+		if (c < tab_op[crnt_carr->command.oper_code].argum_nums)
+			ft_putstr(" ");
 	}
 	ft_putstr("\n");
 	ft_putstr("ADV ");
