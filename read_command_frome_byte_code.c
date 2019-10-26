@@ -77,18 +77,6 @@ void	read_arg_types(t_carriage *crnt_carr, unsigned char *map)
 	crnt_carr->command.argum_types[2] = g_code2t[(crnt_byte >> 2) & 3];
 }
 
-void set_argum_types(t_op *info_com, t_carriage *crnt_carr)
-{
-	int i_argum;
-
-	i_argum = 0;
-	while (i_argum < info_com->argum_nums)
-	{
-		crnt_carr->command.argum_types[i_argum] = info_com->argum_types[i_argum];
-		i_argum++;
-	}
-}
-
 int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 {
 	t_op *info_com;
@@ -105,15 +93,14 @@ int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 	if (is_argum_type(info_com, crnt_carr) != 0)
 	{
 		read_arg_types(crnt_carr, map);
-		if (is_val_arg_tapes(info_com, crnt_carr) != 0)
-			crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
-		else
+		if (is_val_arg_tapes(info_com, crnt_carr) == 0)
 		{
 			crnt_carr->pc = (crnt_carr->pc + 1) % MEM_SIZE;
 			return (0);
 		}
 	}
 	else
-		set_argum_types(info_com, crnt_carr);
+		crnt_carr->command.argum_types[0] = T_IND;
+	crnt_carr->next_pc = (crnt_carr->next_pc + 1) % MEM_SIZE;
 	return (read_com_argums(info_com, crnt_carr, map));
 }
