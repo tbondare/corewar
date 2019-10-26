@@ -39,7 +39,7 @@ void	write_introduction(t_carriage *frst)
 	while (i <= num_pl)
 	{
         crn = frst;
-	    while (crn->unic_num_plr != i)
+	    while (crn && crn->unic_num_plr != i)
 	        crn = crn->next;
 		ft_putstr("* Player ");
 		ft_putnbr(crn->unic_num_plr);

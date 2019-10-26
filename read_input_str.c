@@ -58,6 +58,7 @@ int	found_flg_min_n(char **argv, int *j, t_carriage **frst, int *cnt_plr)
 				crn = add_player_to_list(frst, argv[*j]);
 				found_same_unic_num(frst, ft_atoi(argv[(*j) - 1]), *cnt_plr);
 				crn->unic_num_plr = ft_atoi(argv[(*j) - 1]);
+                (*j)++;
 			}
 			else
 				return (0);
