@@ -16,6 +16,7 @@ void print_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
 	int c;
 
+    (void)data;
 	ft_putstr("P   ");
 	ft_putnbr(crnt_carr->unic_num_plr);
 	ft_putstr("|");
