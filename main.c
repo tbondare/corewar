@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vgrynish <vgrynish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:23:30 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/25 13:43:49 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/25 22:15:14 by vgrynish         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int				main(int argc, char **argv)
 	data.frst = NULL;
 	data.dump_num = -1;
 	cnt_plr = read_inp_str(argc, argv, &data);
+
 	if (!data.frst)
 	{
 		ft_putstr("invalid input str\n");
