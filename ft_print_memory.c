@@ -97,4 +97,5 @@ void	ft_print_memory(const unsigned char *var, size_t size)
 		write(1, " ", 1);
 		next_line_and_print_add(i, size);
 	}
+	write(1, "\n", 1);
 }

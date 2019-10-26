@@ -26,7 +26,6 @@ void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data)
 	if (data->loop_num == data->dump_num)
 	{
 		ft_print_memory(map, MEM_SIZE);
-		write(1, "\n", 1);
 		exit(0);
 	}
 }
@@ -59,6 +58,8 @@ void	ft_corewar(unsigned char *map, t_vm_data *data)
 		{
 			if (cnt <= 1)
 			{
+				if (data->dump_num != -1)
+					ft_print_memory(map, MEM_SIZE);
 				print_chemp_name(data);
 				break ;
 			}
