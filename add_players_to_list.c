@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   add_players_to_list.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vgrynish <vgrynish@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 20:19:08 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/25 22:15:16 by vgrynish         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:45:43 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftcorewar.h"
 
-void			add_player_to_list_crn(t_carriage **crn, char *argv)
+void			add_player_to_list_crn(t_carriage **crn, char *argv,
+		t_carriage *frst)
 {
 	int reg_number;
 
@@ -32,6 +33,7 @@ void			add_player_to_list_crn(t_carriage **crn, char *argv)
 	(*crn)->next->num_oper_live = 0;
 	(*crn)->next->num_cycle_end_alive = -1;
 	(*crn)->next->carry = -1;
+	(*crn)->next->unic_num_plr = define_next_unic_num(frst);
 	(*crn)->next->reg[0] = -(*crn)->next->unic_num_plr;
 	(*crn)->next->next = NULL;
 }
@@ -56,12 +58,12 @@ t_carriage		*add_player_to_list(t_carriage **frst, char *argv)
 		(*frst)->num_oper_live = 0;
 		(*frst)->num_cycle_end_alive = -1;
 		(*frst)->carry = -1;
-		//(*frst)->unic_num_plr = define_next_unic_num(*frst);
+		(*frst)->unic_num_plr = define_next_unic_num(*frst);
 		(*frst)->reg[0] = -(*frst)->unic_num_plr;
 		(*frst)->next = NULL;
 		return (*frst);
 	}
 	else
-		add_player_to_list_crn(&crn, argv);
+		add_player_to_list_crn(&crn, argv, *frst);
 	return (crn->next);
 }

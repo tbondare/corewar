@@ -6,7 +6,7 @@
 /*   By: vgrynish <vgrynish@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 19:54:48 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/25 22:15:18 by vgrynish         ###   ########.fr       */
+/*   Updated: 2019/10/26 18:17:28 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data)
 	if (data->loop_num == data->dump_num)
 	{
 		ft_print_memory(map, MEM_SIZE);
+		write(1, "\n", 1);
 		exit(0);
 	}
 }

@@ -13,8 +13,9 @@
 #ifndef LIBFTCOREWAR_H
 # define LIBFTCOREWAR_H
 
-# include "libft/libft.h"
-# include "libft/ft_printf/inc/libftprintf.h"
+//# include "libft/libft.h"
+//# include "libft/ft_printf/inc/libftprintf.h"
+# include "libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 
@@ -218,5 +219,6 @@ int								is_val_command_oper_code(int crnt_oper_code);
 int								is_argum_type(t_op *info_com, t_carriage *crnt_carr);
 
 void	copy_carr(t_carriage *crnt_carr, t_vm_data *data, int new_pc);
+int		ft_atoi_strict(char const *str);
 
 #endif
