@@ -4,6 +4,7 @@ project(corewar C)
 set(CMAKE_C_STANDARD 99)
 
 include_directories(libft/ft_printf/inc)
+include_directories(libft)
 
 add_executable(corewar
         main.c

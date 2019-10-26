@@ -12,8 +12,44 @@
 
 #include "libftcorewar.h"
 
+void print_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
+{
+	int c;
+
+	ft_putstr("P   ");
+	ft_putnbr(crnt_carr->unic_num_plr);
+	ft_putstr("|");
+	ft_putstr(tab_op[crnt_carr->command.oper_code].name);
+	ft_putstr(" ");
+	c = 0;
+	while (c < tab_op[crnt_carr->command.oper_code].argum_nums)
+	{
+		if (crnt_carr->command.argum_types[c] == T_REG)
+		{
+			ft_putstr("r");
+			ft_putnbr(crnt_carr->command.argum[c] + 1);
+		}
+		else
+			ft_putnbr(crnt_carr->command.argum[c]);
+		ft_putstr(" ");
+		c++;
+	}
+	ft_putstr("\n");
+	ft_putstr("ADV ");
+	ft_putnbr(crnt_carr->next_pc - crnt_carr->pc);
+	ft_putstr(" (");
+	print_address(crnt_carr->pc, "");
+	ft_putstr(" -> ");
+	print_address(crnt_carr->next_pc, "");
+	ft_putstr(") ");
+	ft_print_bytes(&map[crnt_carr->pc], crnt_carr->next_pc - crnt_carr->pc);
+	ft_putstr("\n");
+}
+
 void	do_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
+	if (data->is_v_flag)
+		print_command(crnt_carr, map, data);
 	tab_op[crnt_carr->command.oper_code].fun(crnt_carr, map, data);
 	crnt_carr->pc = crnt_carr->next_pc;
 }

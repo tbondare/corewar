@@ -31,6 +31,16 @@ void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data)
 	}
 }
 
+void print_cycle_num(int num, t_vm_data *data)
+{
+	if (data->is_v_flag)
+	{
+		ft_putstr("It is now cycle ");
+		ft_putnbr(num);
+		ft_putstr("\n");
+	}
+}
+
 void	ft_corewar(unsigned char *map, t_vm_data *data)
 {
 	t_carriage	*crnt_carr;
@@ -38,6 +48,7 @@ void	ft_corewar(unsigned char *map, t_vm_data *data)
 
 	cnt = 0;
 	crnt_carr = data->frst;
+	print_cycle_num(1, data);
 	while (1)
 	{
 		do_crnt_carr(crnt_carr, map, data);
@@ -53,6 +64,7 @@ void	ft_corewar(unsigned char *map, t_vm_data *data)
 			}
 			crnt_carr = data->frst;
 			data->loop_num++;
+			print_cycle_num(data->loop_num + 1, data);
 			if_loop_num_q_dump_num(map, data);
 			cnt = 0;
 		}

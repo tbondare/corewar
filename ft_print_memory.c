@@ -12,7 +12,7 @@
 
 #include "libftcorewar.h"
 
-void	print_address(int i)
+void	print_address(int i, const char* postfix)
 {
 	char	str[4];
 	int		j;
@@ -31,7 +31,7 @@ void	print_address(int i)
 		j--;
 	}
 	write(1, str, 4);
-	write(1, " : ", 3);
+	write(1, postfix, ft_strlen(postfix));
 }
 
 void	next_line_and_print_add(int i, int size)
@@ -39,7 +39,34 @@ void	next_line_and_print_add(int i, int size)
 	if (!(i % 64) && size != 0)
 	{
 		write(1, "\n", 1);
-		print_address(i);
+		print_address(i, " : ");
+	}
+}
+
+void ft_print_bytes(const unsigned char *var, int size)
+{
+	int				i;
+	char			c;
+	unsigned char	prev;
+
+	i = 0;
+	while (size--)
+	{
+		prev = var[i];
+		prev = prev / 16;
+		if (prev % 16 > 9)
+			c = prev % 16 - 10 + 'a';
+		else
+			c = prev % 16 + '0';
+		write(1, &c, 1);
+		prev = var[i];
+		if (prev % 16 > 9)
+			c = prev % 16 - 10 + 'a';
+		else
+			c = prev % 16 + '0';
+		write(1, &c, 1);
+		i++;
+		write(1, " ", 1);
 	}
 }
 
@@ -50,7 +77,7 @@ void	ft_print_memory(const unsigned char *var, size_t size)
 	unsigned char	prev;
 
 	i = 0;
-	print_address(i);
+	print_address(i, " : ");
 	while (size--)
 	{
 		prev = var[i];
