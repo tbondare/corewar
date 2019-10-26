@@ -56,8 +56,8 @@ typedef char					t_arg_type;
 # define T_IND					4
 # define T_LAB					8
 
-static char						code2t[4] = {0, T_REG, T_DIR, T_IND};
-static int						t2size[5] = {0, 1, DIR_SIZE, 0, IND_SIZE};
+static char						g_code2t[4] = {0, T_REG, T_DIR, T_IND};
+static int						g_t2size[5] = {0, 1, DIR_SIZE, 0, IND_SIZE};
 
 # define PROG_NAME_LENGTH		(128)
 # define COMMENT_LENGTH			(2048)
@@ -139,7 +139,7 @@ void							ft_oper_lldi(t_carriage *crnt_carr, unsigned char *map, t_vm_data *da
 void							ft_oper_lfork(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 void							ft_oper_aff(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 
-static t_op						op_tab[17] =
+static t_op						tab_op[17] =
 {
 	{0, 0, {0}, 0, 0, 0, 0, 0, 0},
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0, ft_oper_live},
@@ -207,8 +207,8 @@ void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data);
 void	print_chemp_name(t_vm_data *data);
 
 void							do_crnt_carr(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
-void							do_check(t_carriage *crnt_carr, t_vm_data *data);
-void							check_alive(t_carriage *crnt_carr, t_vm_data *data);
+void							do_check(t_carriage *crnt_carr);
+void							check_alive(t_carriage *crnt_carr);
 void							do_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 
 int								read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map);
