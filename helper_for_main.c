@@ -12,14 +12,35 @@
 
 #include "libftcorewar.h"
 
+int cnt_players(t_carriage *frst)
+{
+    t_carriage *crn;
+    int num;
+
+    num = 0;
+    crn = frst;
+    while (crn)
+    {
+        num++;
+        crn = crn->next;
+    }
+    return (num);
+}
+
 void	write_introduction(t_carriage *frst)
 {
 	t_carriage *crn;
+	int i;
+	int num_pl;
 
-	crn = frst;
+	i = 1;
+	num_pl = cnt_players(frst);
 	ft_putstr("Introducing contestants...\n");
-	while (crn)
+	while (i <= num_pl)
 	{
+        crn = frst;
+	    while (crn->unic_num_plr != i)
+	        crn = crn->next;
 		ft_putstr("* Player ");
 		ft_putnbr(crn->unic_num_plr);
 		ft_putstr(", weighing ");
@@ -29,7 +50,7 @@ void	write_introduction(t_carriage *frst)
 		ft_putstr("\" (\"");
 		ft_putstr(crn->header.comment);
 		ft_putstr("\") !\n");
-		crn = crn->next;
+		i++;
 	}
 }
 
