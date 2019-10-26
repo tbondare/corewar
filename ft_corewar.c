@@ -6,7 +6,7 @@
 /*   By: tbondare <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 19:54:48 by tbondare          #+#    #+#             */
-/*   Updated: 2019/10/22 17:46:04 by tbondare         ###   ########.fr       */
+/*   Updated: 2019/10/25 14:13:49 by tbondare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_chemp_name(t_vm_data *data)
 	ft_putnbr(data->last_pl_said_alive->unic_num_plr);
 	ft_putstr(", \"");
 	ft_putstr(data->last_pl_said_alive->header.prog_name);
-	ft_putstr("\", has won !");
+	ft_putstr("\", has won !\n");
 }
 
 void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data)
@@ -26,6 +26,7 @@ void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data)
 	if (data->loop_num == data->dump_num)
 	{
 		ft_print_memory(map, MEM_SIZE);
+		write(1, "\n", 1);
 		exit(0);
 	}
 }
@@ -37,6 +38,12 @@ void	ft_corewar(unsigned char *map, t_vm_data *data)
 
 	cnt = 0;
 	crnt_carr = data->frst;
+	if (data->dump_num == 0)
+	{
+		ft_print_memory(map, MEM_SIZE);
+		write(1, "\n", 1);
+		exit(0);
+	}
 	while (1)
 	{
 		do_crnt_carr(crnt_carr, map, data);
@@ -45,14 +52,14 @@ void	ft_corewar(unsigned char *map, t_vm_data *data)
 		crnt_carr = crnt_carr->next;
 		if (crnt_carr == NULL)
 		{
-			if (cnt <= 1)
+			if (cnt < 1)
 			{
 				print_chemp_name(data);
 				break ;
 			}
 			crnt_carr = data->frst;
 			data->loop_num++;
-			if_loop_num_q_dump_num(map, data);
+            if_loop_num_q_dump_num(map, data);
 			cnt = 0;
 		}
 	}
