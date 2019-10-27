@@ -54,7 +54,7 @@ void	write_bytes_from_int(int start_address, unsigned char *map, unsigned int va
 	j = 3;
 	while (j >= 0)
 	{
-		map[start_address + j] = (unsigned char)(val & 255);
+		map[(start_address + j) % MEM_SIZE] = (unsigned char)(val & 255);
 		val = val >> 8;
 		j--;
 	}

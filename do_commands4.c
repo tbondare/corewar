@@ -19,6 +19,7 @@ void	copy_carr(t_carriage *crnt_carr, t_vm_data *data, int new_pc)
 	new_carr = (t_carriage *)malloc(sizeof(t_carriage));
 	ft_memcpy(new_carr->reg, crnt_carr->reg, sizeof(int) * REG_NUMBER);
 	new_carr->unic_num_plr = crnt_carr->unic_num_plr;
+	new_carr->is_killed = 0;
 	new_carr->file_name = crnt_carr->file_name;
 	new_carr->command.num_cycle = -1;
 	new_carr->cycles_to_die = crnt_carr->cycles_to_die;
