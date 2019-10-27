@@ -18,7 +18,7 @@ void print_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 
     (void)data;
 	ft_putstr("P    ");
-	ft_putnbr(crnt_carr->unic_num_plr);
+	ft_putnbr(crnt_carr->unic_num_carr);
 	ft_putstr(" | ");
 	ft_putstr(tab_op[crnt_carr->command.oper_code].name);
 	ft_putstr(" ");
@@ -57,37 +57,55 @@ void	do_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 	crnt_carr->pc = crnt_carr->next_pc;
 }
 
-void	check_alive(t_carriage *crnt_carr)
+void	check_alive(t_carriage *crnt_carr, t_vm_data *data)
 {
-	if (crnt_carr->num_oper_live >= NBR_LIVE)
-	{
-		crnt_carr->cycles_to_die = crnt_carr->cycles_to_die - CYCLE_DELTA;
-		crnt_carr->num_checks = 0;
-	}
-	else
-	{
-		crnt_carr->num_checks++;
-		if (crnt_carr->num_checks == MAX_CHECKS)
-			crnt_carr->cycles_to_die = crnt_carr->cycles_to_die - CYCLE_DELTA;
-	}
-	if (crnt_carr->num_oper_live == 0 || crnt_carr->cycles_to_die <= 0)
-		crnt_carr->is_killed = 1;
+//	if (crnt_carr->num_oper_live >= NBR_LIVE)
+//	{
+//		crnt_carr->cycles_to_die = crnt_carr->cycles_to_die - CYCLE_DELTA;
+//		crnt_carr->num_checks = 0;
+//	}
+//	else
+//	{
+//		crnt_carr->num_checks++;
+//		if (crnt_carr->num_checks == MAX_CHECKS)
+//			crnt_carr->cycles_to_die = crnt_carr->cycles_to_die - CYCLE_DELTA;
+//	}
+//	if (crnt_carr->num_oper_live == 0 || crnt_carr->cycles_to_die <= 0)
+//	{
+//		crnt_carr->is_killed = 1;
+//		if (data->is_v_flag)
+//		{
+//			ft_putnbr(crnt_carr->unic_num_carr);
+//			ft_putstr("   KILLED\n");
+//		}
+//	}
 }
 
-void	do_check(t_carriage *crnt_carr)
+void	do_check(t_carriage *crnt_carr, t_vm_data *data)
 {
-	crnt_carr->cnt_ccls_to_die++;
-	if (crnt_carr->cnt_ccls_to_die > 0)
+	if ((data->cnt_ccls_to_die >= data->cycles_to_die &&
+		data->loop_num - crnt_carr->last_op_live_cycle >= data->cycles_to_die) ||
+			data->cycles_to_die <= 0)
 	{
-		if (crnt_carr->cnt_ccls_to_die == CYCLE_TO_DIE)
+		crnt_carr->is_killed = 1;
+		if (data->is_v_flag)
 		{
-			crnt_carr->cnt_ccls_to_die = 0;
-			check_alive(crnt_carr);
-			crnt_carr->num_oper_live = 0;
+			ft_putnbr(crnt_carr->unic_num_carr);
+			ft_putstr("   KILLED\n");
 		}
 	}
-	else
-		check_alive(crnt_carr);
+//	crnt_carr->cnt_ccls_to_die++;
+//	if (crnt_carr->cnt_ccls_to_die > 0)
+//	{
+//		if (crnt_carr->cnt_ccls_to_die == CYCLE_TO_DIE)
+//		{
+//			crnt_carr->cnt_ccls_to_die = 0;
+//			check_alive(crnt_carr, data);
+//			crnt_carr->num_oper_live = 0;
+//		}
+//	}
+//	else
+//		check_alive(crnt_carr, data);
 }
 
 void	do_crnt_carr(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
@@ -116,5 +134,5 @@ void	do_crnt_carr(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 			crnt_carr->command.num_cycle = -1;
 		}
 	}
-	do_check(crnt_carr);
+	do_check(crnt_carr, data);
 }

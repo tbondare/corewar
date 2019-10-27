@@ -23,10 +23,8 @@ void	copy_carr(t_carriage *crnt_carr, t_vm_data *data, int new_pc)
 	new_carr->command.num_cycle = -1;
 	new_carr->cycles_to_die = crnt_carr->cycles_to_die;
 	new_carr->num_checks = crnt_carr->num_checks;
-	new_carr->cnt_ccls_to_die = crnt_carr->cnt_ccls_to_die;
 	new_carr->command.is_arg_type = crnt_carr->command.is_arg_type;
-	new_carr->num_oper_live = crnt_carr->num_oper_live;
-	new_carr->num_cycle_end_alive = crnt_carr->num_cycle_end_alive;
+	new_carr->last_op_live_cycle = -CYCLE_TO_DIE;
 	new_carr->carry = crnt_carr->carry;
 	new_carr->next = data->frst;
 	data->frst = new_carr;
@@ -35,6 +33,8 @@ void	copy_carr(t_carriage *crnt_carr, t_vm_data *data, int new_pc)
 		new_pc = MEM_SIZE + new_pc;
 	new_carr->pc = new_pc;
 	new_carr->next_pc = new_pc;
+	new_carr->unic_num_carr = ++data->carg_num;
+	new_carr->header = crnt_carr->header;
 }
 
 void	ft_oper_fork(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)

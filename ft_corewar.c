@@ -40,6 +40,23 @@ void print_cycle_num(int num, t_vm_data *data)
 	}
 }
 
+void do_global_check(t_vm_data *data)
+{
+	if (data->cnt_ccls_to_die >= data->cycles_to_die)
+	{
+		if (data->num_oper_live >= NBR_LIVE ||
+				data->num_checks_without_cycles_to_die_change > MAX_CHECKS)
+		{
+			data->cycles_to_die = data->cycles_to_die - CYCLE_DELTA;
+			data->num_checks_without_cycles_to_die_change = 0;
+		}
+		else
+			data->num_checks_without_cycles_to_die_change++;
+		data->cnt_ccls_to_die = 0;
+		data->num_oper_live = 0;
+	}
+}
+
 void	ft_corewar(unsigned char *map, t_vm_data *data)
 {
 	t_carriage	*crnt_carr;
@@ -68,6 +85,8 @@ void	ft_corewar(unsigned char *map, t_vm_data *data)
 			print_cycle_num(data->loop_num + 1, data);
 			if_loop_num_q_dump_num(map, data);
 			cnt = 0;
+			do_global_check(data);
+			data->cnt_ccls_to_die++;
 		}
 	}
 }

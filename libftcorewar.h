@@ -88,9 +88,8 @@ typedef	struct					s_carriage
 	int							carry;
 	int							reg[REG_NUMBER];
 	int							num_checks;
-	int							cnt_ccls_to_die;
 	int							cycles_to_die;
-	int							num_oper_live;
+	int							last_op_live_cycle;
 	int							unic_num_carr;
 	int							unic_num_plr;
 	char						*file_name;
@@ -109,6 +108,11 @@ typedef struct					s_vm_data
 	int							loop_num;
 	int dump_num;
 	int is_v_flag;
+	int carg_num;
+	int							cycles_to_die;
+	int							num_oper_live;
+	int num_checks_without_cycles_to_die_change;
+	int							cnt_ccls_to_die;
 }								t_vm_data;
 
 typedef struct					s_op
@@ -207,8 +211,8 @@ void	if_loop_num_q_dump_num(unsigned char *map, t_vm_data *data);
 void	print_chemp_name(t_vm_data *data);
 
 void							do_crnt_carr(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
-void							do_check(t_carriage *crnt_carr);
-void							check_alive(t_carriage *crnt_carr);
+void							do_check(t_carriage *crnt_carr, t_vm_data *data);
+void							check_alive(t_carriage *crnt_carr, t_vm_data *data);
 void							do_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data);
 
 int								read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map);

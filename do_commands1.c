@@ -16,11 +16,16 @@ void	ft_oper_live(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
     (void)data;
     (void)map;
+    data->num_oper_live++;
+	crnt_carr->last_op_live_cycle = data->loop_num;
 	if (crnt_carr->command.argum[0] == -crnt_carr->unic_num_plr)
 	{
-		crnt_carr->num_cycle_end_alive = data->loop_num;
 		data->last_pl_said_alive = crnt_carr;
-		crnt_carr->num_oper_live++;
+		ft_putstr("A process shows that player ");
+		ft_putnbr(crnt_carr->unic_num_plr);
+		ft_putstr(" (");
+		ft_putstr(crnt_carr->header.prog_name);
+		ft_putstr(") is alive\n");
 	}
 }
 

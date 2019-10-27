@@ -47,8 +47,13 @@ int				main(int argc, char **argv)
 	t_vm_data		data;
 
 	data.frst = NULL;
+	data.cycles_to_die = CYCLE_TO_DIE;
+	data.num_oper_live = 0;
+	data.num_checks_without_cycles_to_die_change = 0;
 	data.dump_num = -1;
+	data.cnt_ccls_to_die = 0;
 	cnt_plr = read_inp_str(argc, argv, &data);
+	data.carg_num = cnt_plr;
 
 	if (!data.frst)
 	{
