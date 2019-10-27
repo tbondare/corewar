@@ -25,7 +25,18 @@ void print_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 	c = 0;
 	while (c < tab_op[crnt_carr->command.oper_code].argum_nums)
 	{
-		if (crnt_carr->command.argum_types[c] == T_REG)
+		if (crnt_carr->command.oper_code == 2 && crnt_carr->command.argum[c] < 0 && c == 0 &&
+				crnt_carr->command.argum_types[c] == T_DIR) // ld
+			ft_putnbr(0);
+		else if (crnt_carr->command.oper_code == 3 && c == 1 && crnt_carr->command.argum_types[c] == T_REG) // st
+			ft_putnbr(crnt_carr->command.argum[c] + 1);
+		else if (crnt_carr->command.oper_code == 11 && (c == 1 || c == 2) &&
+				crnt_carr->command.argum_types[c] == T_REG) // sti
+			ft_putnbr(get_arg_value(crnt_carr, c, map));
+		else if (crnt_carr->command.oper_code == 6 && (c == 0 || c == 1) &&
+				crnt_carr->command.argum_types[c] == T_REG) // and
+			ft_putnbr(get_arg_value(crnt_carr, c, map));
+		else if (crnt_carr->command.argum_types[c] == T_REG)
 		{
 			ft_putstr("r");
 			ft_putnbr(crnt_carr->command.argum[c] + 1);
@@ -36,17 +47,43 @@ void print_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 		if (c < tab_op[crnt_carr->command.oper_code].argum_nums)
 			ft_putstr(" ");
 	}
+	if (crnt_carr->command.oper_code == 9 && crnt_carr->carry == 1)  // zjmp
+		ft_putstr(" OK");
+	if (crnt_carr->command.oper_code == 9 && crnt_carr->carry != 1)  // zjmp
+		ft_putstr(" FAILED");
+	if (crnt_carr->command.oper_code == 12) // fork
+	{
+		ft_putstr(" (");
+		ft_putnbr(crnt_carr->pc + crnt_carr->command.argum[0] % IDX_MOD);
+		ft_putstr(")");
+	}
+	if (crnt_carr->command.oper_code == 11) // sti
+	{
+		ft_putstr("\n       | -> store to ");
+		ft_putnbr(get_arg_value(crnt_carr, 1, map));
+		ft_putstr(" + ");
+		ft_putnbr(get_arg_value(crnt_carr, 2, map));
+		ft_putstr(" = ");
+		ft_putnbr(get_arg_value(crnt_carr, 1, map) + get_arg_value(crnt_carr, 2, map));
+		ft_putstr(" (with pc and mod ");
+		ft_putnbr(crnt_carr->pc + (get_arg_value(crnt_carr, 1, map) +
+				  get_arg_value(crnt_carr, 2, map)) % IDX_MOD);
+		ft_putstr(")");
+	}
 	ft_putstr("\n");
-	ft_putstr("ADV ");
-	ft_putnbr(crnt_carr->next_pc - crnt_carr->pc);
-	ft_putstr(" (");
-	print_address(crnt_carr->pc, "");
-	ft_putstr(" -> ");
-	print_address(crnt_carr->next_pc, "");
-	ft_putstr(") ");
-	if (crnt_carr->next_pc > crnt_carr->pc)
-		ft_print_bytes(&map[crnt_carr->pc], crnt_carr->next_pc - crnt_carr->pc);
-	ft_putstr("\n");
+	if (!(crnt_carr->command.oper_code == 9 && crnt_carr->carry == 1)) // zjmp
+	{
+		ft_putstr("ADV ");
+		ft_putnbr(crnt_carr->next_pc - crnt_carr->pc);
+		ft_putstr(" (");
+		print_address(crnt_carr->pc, "");
+		ft_putstr(" -> ");
+		print_address(crnt_carr->next_pc, "");
+		ft_putstr(") ");
+		if (crnt_carr->next_pc > crnt_carr->pc)
+			ft_print_bytes(&map[crnt_carr->pc], crnt_carr->next_pc - crnt_carr->pc);
+		ft_putstr("\n");
+	}
 }
 
 void	do_command(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)

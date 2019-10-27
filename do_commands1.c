@@ -21,11 +21,22 @@ void	ft_oper_live(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 	if (crnt_carr->command.argum[0] == -crnt_carr->unic_num_plr)
 	{
 		data->last_pl_said_alive = crnt_carr;
-		ft_putstr("A process shows that player ");
-		ft_putnbr(crnt_carr->unic_num_plr);
-		ft_putstr(" (");
-		ft_putstr(crnt_carr->header.prog_name);
-		ft_putstr(") is alive\n");
+		if (data->is_v_flag)
+		{
+			ft_putstr("Player ");
+			ft_putnbr(crnt_carr->unic_num_plr);
+			ft_putstr(" (");
+			ft_putstr(crnt_carr->header.prog_name);
+			ft_putstr(") is said to be alive\n");
+		}
+		else
+		{
+//			ft_putstr("A process shows that player ");
+//			ft_putnbr(crnt_carr->unic_num_plr);
+//			ft_putstr(" (");
+//			ft_putstr(crnt_carr->header.prog_name);
+//			ft_putstr(") is alive\n");
+		}
 	}
 }
 
@@ -48,7 +59,10 @@ void	ft_oper_ld(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 
 void	ft_oper_aff(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 {
+	char output;
+
     (void)map;
     (void)data;
-	write(1, &crnt_carr->reg[crnt_carr->command.argum[0]], 1);
+    output = (char)crnt_carr->reg[crnt_carr->command.argum[0]];
+	write(1, &output, 1);
 }
