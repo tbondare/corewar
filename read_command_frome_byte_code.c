@@ -93,6 +93,11 @@ int		read_command_frome_byte_code(t_carriage *crnt_carr, unsigned char *map)
 {
 	t_op *info_com;
 
+	if (crnt_carr->pc < 0)
+	{
+		crnt_carr->pc = (crnt_carr->pc + 1) % MEM_SIZE;
+		return (0);
+	}
 	crnt_carr->command.oper_code = map[crnt_carr->pc];
 	crnt_carr->next_pc = crnt_carr->pc;
 	if (is_val_command_oper_code(crnt_carr->command.oper_code) != 1)

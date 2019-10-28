@@ -35,8 +35,8 @@ void	ft_oper_zjmp(t_carriage *crnt_carr, unsigned char *map, t_vm_data *data)
 	if (crnt_carr->carry == 1)
 	{
 		crnt_carr->next_pc = (crnt_carr->pc + crnt_carr->command.argum[0] % IDX_MOD) % MEM_SIZE;
-		if (crnt_carr->next_pc < 0)
-			crnt_carr->next_pc = MEM_SIZE + crnt_carr->next_pc;
+//		if (crnt_carr->next_pc < 0) // no negative pc
+//			crnt_carr->next_pc = MEM_SIZE + crnt_carr->next_pc;
 	}
 }
 
